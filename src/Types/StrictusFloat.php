@@ -7,6 +7,9 @@ namespace Strictus\Types;
 use Strictus\Interfaces\StrictusTypeInterface;
 use Strictus\Traits\StrictusTyping;
 
+/**
+ * @internal
+ */
 final class StrictusFloat implements StrictusTypeInterface
 {
     use StrictusTyping;
@@ -16,10 +19,10 @@ final class StrictusFloat implements StrictusTypeInterface
     private string $errorMessage = 'Expected Float';
 
     /**
-     * @param  float|null  $value
+     * @param  mixed  $value
      * @param  bool  $nullable
      */
-    public function __construct(private ?float $value, private bool $nullable)
+    public function __construct(mixed $value, private bool $nullable)
     {
         if ($nullable) {
             $this->errorMessage .= ' Or Null';

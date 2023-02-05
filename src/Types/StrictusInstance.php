@@ -7,6 +7,9 @@ namespace Strictus\Types;
 use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Interfaces\StrictusTypeInterface;
 
+/**
+ * @internal
+ */
 final class StrictusInstance implements StrictusTypeInterface
 {
     private string $instanceType;

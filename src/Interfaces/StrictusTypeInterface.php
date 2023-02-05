@@ -6,6 +6,9 @@ namespace Strictus\Interfaces;
 
 use Strictus\Types\StrictusUndefined;
 
+/**
+ * @internal
+ */
 interface StrictusTypeInterface
 {
     /**

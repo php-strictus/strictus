@@ -7,14 +7,23 @@ namespace Strictus\Traits;
 use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Types\StrictusUndefined;
 
+/**
+ * @internal
+ */
 trait StrictusTyping
 {
+    public mixed $value;
+
     /**
      * @param  mixed  $value
      * @return mixed
      */
     public function __invoke(mixed $value = new StrictusUndefined()): mixed
     {
+        if (($value === null || $value instanceof StrictusUndefined) && ! $this->nullable) {
+            throw new StrictusTypeException($this->errorMessage);
+        }
+
         if (! ($value instanceof StrictusUndefined)) {
             if (gettype($value) !== $this->instanceType) {
                 if ($this->nullable && $value !== null) {
@@ -36,7 +45,7 @@ trait StrictusTyping
      */
     public function __get(string $value): mixed
     {
-        return $this->$value;
+        return $this->value;
     }
 
     /**
