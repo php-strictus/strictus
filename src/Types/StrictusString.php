@@ -7,6 +7,9 @@ namespace Strictus\Types;
 use Strictus\Interfaces\StrictusTypeInterface;
 use Strictus\Traits\StrictusTyping;
 
+/**
+ * @internal
+ */
 final class StrictusString implements StrictusTypeInterface
 {
     use StrictusTyping;
@@ -16,10 +19,10 @@ final class StrictusString implements StrictusTypeInterface
     private string $errorMessage = 'Expected String';
 
     /**
-     * @param  string|null  $value
+     * @param  mixed  $value
      * @param  bool  $nullable
      */
-    public function __construct(private ?string $value, private bool $nullable)
+    public function __construct(mixed $value, private bool $nullable)
     {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';

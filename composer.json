@@ -36,8 +36,8 @@
         "tests": ["@test:lint", "@test:unit"]
     },
     "require-dev": {
-        "laravel/pint": "^1.4",
-        "pestphp/pest": "^1.22"
+        "laravel/pint": "^1.4.1",
+        "pestphp/pest": "^1.22.4"
     },
     "config": {
         "sort-packages": true,

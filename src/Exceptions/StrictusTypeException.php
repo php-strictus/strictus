@@ -6,6 +6,9 @@ namespace Strictus\Exceptions;
 
 use TypeError;
 
+/**
+ * @internal
+ */
 final class StrictusTypeException extends TypeError
 {
 }

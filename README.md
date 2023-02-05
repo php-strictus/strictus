@@ -1,6 +1,6 @@
 <div align="center">
     <p>
-        <img src="https://github.com/php-strictus/strictus/art/logo.png" alt="Strictus" />
+        <img src="https://github.com/php-strictus/strictus/raw/main/art/logo.png" alt="Strictus" />
         <h1>Strictus</h1>
         Strict Typing on inline variables for PHP
     </p>
