@@ -13,7 +13,7 @@ trait StrictusTyping
      */
     public function __invoke(mixed $value = new StrictusUndefined()): mixed
     {
-        if (! $value instanceof StrictusUndefined) {
+        if (! ($value instanceof StrictusUndefined)) {
             if (gettype($value) !== $this->instanceType) {
                 if ($this->nullable && $value !== null) {
                     throw new TypeError($this->errorMessage);
