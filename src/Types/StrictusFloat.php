@@ -14,7 +14,8 @@ final class StrictusFloat implements StrictusTypeInterface
 {
     use StrictusTyping;
 
-    private string $instanceType = 'float';
+    //this is the internal type name given to what we call float
+    private string $instanceType = 'double';
 
     private string $errorMessage = 'Expected Float';
 
@@ -22,10 +23,12 @@ final class StrictusFloat implements StrictusTypeInterface
      * @param  mixed  $value
      * @param  bool  $nullable
      */
-    public function __construct(mixed $value, private bool $nullable)
+    public function __construct(private mixed $value, private bool $nullable)
     {
         if ($nullable) {
             $this->errorMessage .= ' Or Null';
         }
+
+        $this->handleInstantiation($value);
     }
 }
