@@ -30,4 +30,14 @@ final class StrictusArray implements StrictusTypeInterface
 
         $this->handleInstantiation($value);
     }
+
+    public function get(): ?array
+    {
+        return $this->value;
+    }
+
+    public function set($value): void
+    {
+        $this->__invoke($value);
+    }
 }

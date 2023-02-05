@@ -33,7 +33,9 @@ it('throws exception when trying to instantiate a boolean with wrong type', func
 it('returns value correctly', function () {
     $myFloat = Strictus::float(3.14);
 
-    expect($myFloat())->toEqual(3.14)->and($myFloat->value)->toEqual(3.14);
+    expect($myFloat())->toEqual(3.14)
+        ->and($myFloat->value)->toEqual(3.14)
+        ->and($myFloat->get())->toEqual(3.14);
 });
 
 it('changes value correctly', function () {
@@ -41,10 +43,21 @@ it('changes value correctly', function () {
 
     $myFloat->value = 1.12;
 
-    expect($myFloat())->toEqual(1.12)->and($myFloat->value)->toEqual(1.12);
+    expect($myFloat())->toEqual(1.12)
+        ->and($myFloat->value)->toEqual(1.12)
+        ->and($myFloat->get())->toEqual(1.12);
 
     $myFloat2 = Strictus::float(3.14);
     $myFloat2(1.12);
 
-    expect($myFloat2())->toEqual(1.12)->and($myFloat2->value)->toEqual(1.12);
+    expect($myFloat2())->toEqual(1.12)
+        ->and($myFloat2->value)->toEqual(1.12)
+        ->and($myFloat2->get())->toEqual(1.12);
+
+    $myFloat3 = Strictus::float(3.14);
+    $myFloat3->set(2.45);
+
+    expect($myFloat3())->toEqual(2.45)
+        ->and($myFloat3->value)->toEqual(2.45)
+        ->and($myFloat3->get())->toEqual(2.45);
 });

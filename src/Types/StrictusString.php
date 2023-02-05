@@ -30,4 +30,14 @@ final class StrictusString implements StrictusTypeInterface
 
         $this->handleInstantiation($value);
     }
+
+    public function get(): ?string
+    {
+        return $this->value;
+    }
+
+    public function set($value): void
+    {
+        $this->__invoke($value);
+    }
 }

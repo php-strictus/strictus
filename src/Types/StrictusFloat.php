@@ -31,4 +31,14 @@ final class StrictusFloat implements StrictusTypeInterface
 
         $this->handleInstantiation($value);
     }
+
+    public function get(): ?float
+    {
+        return $this->value;
+    }
+
+    public function set($value): void
+    {
+        $this->__invoke($value);
+    }
 }

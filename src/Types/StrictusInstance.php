@@ -12,7 +12,7 @@ use Strictus\Interfaces\StrictusTypeInterface;
  */
 final class StrictusInstance implements StrictusTypeInterface
 {
-    private string $instanceType;
+    private ?string $instanceType;
 
     private string $errorMessage;
 
@@ -22,7 +22,14 @@ final class StrictusInstance implements StrictusTypeInterface
      */
     public function __construct(private mixed $value, private bool $nullable)
     {
-        $this->instanceType = $value::class;
+        if ($this->value === null && $this->nullable) {
+            return;
+        }
+
+        if (gettype($this->value) === 'object') {
+            $this->instanceType = $value::class;
+        }
+
         $this->errorMessage = 'Expected Instance Of '.$this->value::class;
 
         if ($this->nullable) {
@@ -71,10 +78,20 @@ final class StrictusInstance implements StrictusTypeInterface
             return;
         }
 
-        if (! $value instanceof $this->instanceType) {
+        if (! ($value instanceof $this->instanceType)) {
             throw new StrictusTypeException($this->errorMessage);
         }
 
         $this->value = $value;
+    }
+
+    public function get()
+    {
+        return $this->value;
+    }
+
+    public function set($value): void
+    {
+        $this->__invoke($value);
     }
 }

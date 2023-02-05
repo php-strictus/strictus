@@ -25,6 +25,8 @@ it('sets the correct array value', function () {
     expect($myArray->value)
         ->toEqualCanonicalizing([1, 2, 3])
         ->and($myArray())
+        ->toEqualCanonicalizing([1, 2, 3])
+        ->and($myArray->get())
         ->toEqualCanonicalizing([1, 2, 3]);
 
     $myArray->value = [4, 5, 6];
@@ -32,6 +34,9 @@ it('sets the correct array value', function () {
 
     $myArray([7, 8, 9]);
     expect($myArray())->toEqualCanonicalizing([7, 8, 9]);
+
+    $myArray([10, 11, 12]);
+    expect($myArray->get())->toEqualCanonicalizing([10, 11, 12]);
 });
 
 it('instantiates a nullable array variable with array method', function () {

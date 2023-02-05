@@ -22,12 +22,22 @@ final class StrictusObject implements StrictusTypeInterface
      * @param  mixed  $value
      * @param  bool  $nullable
      */
-    public function __construct(mixed $value, private bool $nullable)
+    public function __construct(private mixed $value, private bool $nullable)
     {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
         }
 
         $this->handleInstantiation($value);
+    }
+
+    public function get(): ?object
+    {
+        return $this->value;
+    }
+
+    public function set($value): void
+    {
+        $this->__invoke($value);
     }
 }

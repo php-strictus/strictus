@@ -5,20 +5,20 @@ use Strictus\Strictus;
 use Strictus\Types\StrictusString;
 
 it('instantiates a string variable', function () {
-    $myInt = Strictus::string('hello');
-    expect($myInt)
+    $myString = Strictus::string('hello');
+    expect($myString)
         ->toBeInstanceOf(StrictusString::class);
 });
 
 it('instantiates a nullable string variable with string method', function () {
-    $myInt = Strictus::string(null, true);
-    expect($myInt)
+    $myString = Strictus::string(null, true);
+    expect($myString)
         ->toBeInstanceOf(StrictusString::class);
 });
 
 it('instantiates a nullable string variable with nullableStringeger method', function () {
-    $myInt = Strictus::nullableString(null);
-    expect($myInt)
+    $myString = Strictus::nullableString(null);
+    expect($myString)
         ->toBeInstanceOf(StrictusString::class);
 });
 
@@ -31,20 +31,33 @@ it('throws exception when trying to instantiate a string with wrong type', funct
 });
 
 it('returns value correctly', function () {
-    $myInt = Strictus::string('hello');
+    $myString = Strictus::string('hello');
 
-    expect($myInt())->toEqual('hello')->and($myInt->value)->toEqual('hello');
+    expect($myString())->toEqual('hello')
+        ->and($myString->value)->toEqual('hello')
+        ->and($myString->get())->toEqual('hello');
 });
 
 it('changes value correctly', function () {
-    $myInt = Strictus::string('hello');
+    $myString = Strictus::string('hello');
 
-    $myInt->value = 'goodbye';
+    $myString->value = 'goodbye';
 
-    expect($myInt())->toEqual('goodbye')->and($myInt->value)->toEqual('goodbye');
+    expect($myString())->toEqual('goodbye')
+        ->and($myString->value)->toEqual('goodbye')
+        ->and($myString->get())->toEqual('goodbye');
 
-    $myInt2 = Strictus::string('hello');
-    $myInt2('goodbye');
+    $myString2 = Strictus::string('hello');
+    $myString2('goodbye');
 
-    expect($myInt2())->toEqual('goodbye')->and($myInt2->value)->toEqual('goodbye');
+    expect($myString2())->toEqual('goodbye')
+        ->and($myString2->value)->toEqual('goodbye')
+        ->and($myString2->get())->toEqual('goodbye');
+
+    $myString3 = Strictus::string('hello');
+    $myString3->set('goodbye');
+
+    expect($myString3())->toEqual('goodbye')
+        ->and($myString3->value)->toEqual('goodbye')
+        ->and($myString3->get())->toEqual('goodbye');
 });

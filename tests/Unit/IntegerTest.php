@@ -41,10 +41,21 @@ it('changes value correctly', function () {
 
     $myInt->value = 1;
 
-    expect($myInt())->toEqual(1)->and($myInt->value)->toEqual(1);
+    expect($myInt())->toEqual(1)
+        ->and($myInt->value)->toEqual(1)
+        ->and($myInt->value)->toEqual(1);
 
     $myInt2 = Strictus::int(3);
     $myInt2(1);
 
-    expect($myInt2())->toEqual(1)->and($myInt2->value)->toEqual(1);
+    expect($myInt2())->toEqual(1)
+        ->and($myInt2->value)->toEqual(1)
+        ->and($myInt2->get())->toEqual(1);
+
+    $myInt3 = Strictus::int(3);
+    $myInt3->set(1);
+
+    expect($myInt3())->toEqual(1)
+        ->and($myInt3->value)->toEqual(1)
+        ->and($myInt3->get())->toEqual(1);
 });

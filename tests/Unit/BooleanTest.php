@@ -35,6 +35,7 @@ it('returns value correctly', function () {
 
     expect($myBoolean())->toBeTrue();
     expect($myBoolean->value)->toBeTrue();
+    expect($myBoolean->get())->toBeTrue();
 });
 
 it('changes value correctly', function () {
@@ -42,10 +43,14 @@ it('changes value correctly', function () {
 
     $myBoolean->value = false;
 
-    expect($myBoolean())->toBeFalse()->and($myBoolean->value)->toBeFalse();
+    expect($myBoolean())->toBeFalse()
+        ->and($myBoolean->value)->toBeFalse()
+        ->and($myBoolean->get())->toBeFalse();
 
     $myBoolean2 = Strictus::boolean(true);
     $myBoolean2(false);
 
-    expect($myBoolean2())->toBeFalse()->and($myBoolean2->value)->toBeFalse();
+    expect($myBoolean2())->toBeFalse()
+        ->and($myBoolean2->value)->toBeFalse()
+        ->and($myBoolean2->get())->toBeFalse();
 });
