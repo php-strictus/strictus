@@ -1,6 +1,8 @@
 {
     "name": "strictus/strictus",
-    "description": "Strict Internal Typing For PHP",
+    "description": "Strict Typing on inline variables for PHP",
+    "type": "library",
+    "keywords": ["php", "type", "typing", "strict", "strict types", "strict typing"],
     "license": "MIT",
     "authors": [
         {
@@ -14,9 +16,6 @@
             "role": "Developer"
         }
     ],
-    "require": {
-        "php": "^8.1"
-    },
     "autoload": {
         "psr-4": {
             "Strictus\\": "src"
@@ -27,6 +26,19 @@
             "Strictus\\Tests\\": "tests"
         }
     },
+    "require": {
+        "php": "^8.0"
+    },
+    "scripts": {
+        "lint": "pint",
+        "test:lint": "pint --test",
+        "test:unit": "./vendor/bin/pest --order-by random",
+        "tests": ["@test:lint", "@test:unit"]
+    },
+    "require-dev": {
+        "laravel/pint": "^1.4",
+        "pestphp/pest": "^1.22"
+    },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
@@ -34,9 +46,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require-dev": {
-        "laravel/pint": "^1.4",
-        "pestphp/pest": "^1.22"
-    }
+    "prefer-stable": true
 }
