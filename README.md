@@ -89,7 +89,7 @@ Both of these forms will work for any of the types.
 
 ## Error Handling
 
-When you are using this package, the package will throw a `TypeError` if you pass it a type that is not compatible with the intended conditions
+When you are using this package, the package will throw a `Strictus\Exceptions\StrictusTypeException` if you pass it a type that is not compatible with the intended conditions
 
 ## Credits
 

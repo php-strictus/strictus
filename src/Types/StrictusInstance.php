@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Strictus\Types;
 
+use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Interfaces\StrictusTypeInterface;
-use TypeError;
 
-class StrictusInstance implements StrictusTypeInterface
+final class StrictusInstance implements StrictusTypeInterface
 {
     private string $instanceType;
 
@@ -34,7 +36,7 @@ class StrictusInstance implements StrictusTypeInterface
         if (! $value instanceof StrictusUndefined) {
             if (! $value instanceof $this->instanceType) {
                 if ($this->nullable && $value !== null) {
-                    throw new TypeError($this->errorMessage);
+                    throw new StrictusTypeException($this->errorMessage);
                 }
             }
 
@@ -67,7 +69,7 @@ class StrictusInstance implements StrictusTypeInterface
         }
 
         if (! $value instanceof $this->instanceType) {
-            throw new TypeError($this->errorMessage);
+            throw new StrictusTypeException($this->errorMessage);
         }
 
         $this->value = $value;
