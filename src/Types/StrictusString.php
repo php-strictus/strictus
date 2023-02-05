@@ -1,9 +1,9 @@
 <?php
 
-namespace Strictus\Strictus\Types;
-use Strictus\Strictus\Interfaces\StrictusTypeInterface;
-use Strictus\Strictus\Traits\StrictusTyping;
-use TypeError;
+namespace Strictus\Types;
+
+use Strictus\Interfaces\StrictusTypeInterface;
+use Strictus\Traits\StrictusTyping;
 
 class StrictusString implements StrictusTypeInterface
 {
@@ -13,10 +13,14 @@ class StrictusString implements StrictusTypeInterface
 
     private string $errorMessage = 'Expected String';
 
-    public function __construct(public ?string $value, private bool $nullable) {
+    /**
+     * @param  string|null  $value
+     * @param  bool  $nullable
+     */
+    public function __construct(public ?string $value, private bool $nullable)
+    {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
         }
     }
 }
-

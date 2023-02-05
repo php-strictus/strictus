@@ -1,15 +1,19 @@
 <?php
 
-namespace Strictus\Strictus\Traits;
+namespace Strictus\Traits;
 
-use Strictus\Strictus\Types\StrictusUndefined;
+use Strictus\Types\StrictusUndefined;
 use TypeError;
 
 trait StrictusTyping
 {
-    public function __invoke(mixed $value = new StrictusUndefined())
+    /**
+     * @param  mixed  $value
+     * @return mixed
+     */
+    public function __invoke(mixed $value = new StrictusUndefined()): mixed
     {
-        if (!$value instanceof StrictusUndefined) {
+        if (! $value instanceof StrictusUndefined) {
             if (gettype($value) !== $this->instanceType) {
                 if ($this->nullable && $value !== null) {
                     throw new TypeError($this->errorMessage);
@@ -24,12 +28,21 @@ trait StrictusTyping
         return $this->value;
     }
 
-    public function __get(string $value)
+    /**
+     * @param  string  $value
+     * @return mixed
+     */
+    public function __get(string $value): mixed
     {
         return $this->$value;
     }
 
-    public function __set(string $name, $value): void
+    /**
+     * @param  string  $name
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set(string $name, mixed $value): void
     {
         if ($name !== 'value') {
             return;

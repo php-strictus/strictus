@@ -1,9 +1,9 @@
 <?php
 
-namespace Strictus\Strictus\Types;
+namespace Strictus\Types;
 
-use Strictus\Strictus\Interfaces\StrictusTypeInterface;
-use Strictus\Strictus\Traits\StrictusTyping;
+use Strictus\Interfaces\StrictusTypeInterface;
+use Strictus\Traits\StrictusTyping;
 
 class StrictusFloat implements StrictusTypeInterface
 {
@@ -13,10 +13,14 @@ class StrictusFloat implements StrictusTypeInterface
 
     private string $errorMessage = 'Expected Float';
 
-    public function __construct(private ?float $value, private bool $nullable) {
+    /**
+     * @param  float|null  $value
+     * @param  bool  $nullable
+     */
+    public function __construct(private ?float $value, private bool $nullable)
+    {
         if ($nullable) {
             $this->errorMessage .= ' Or Null';
         }
     }
 }
-

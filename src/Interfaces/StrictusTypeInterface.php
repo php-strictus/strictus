@@ -1,14 +1,27 @@
 <?php
 
-namespace Strictus\Strictus\Interfaces;
+namespace Strictus\Interfaces;
 
-use Strictus\Strictus\Types\StrictusUndefined;
+use Strictus\Types\StrictusUndefined;
 
 interface StrictusTypeInterface
 {
-    public function __get(string $value);
+    /**
+     * @param  string  $value
+     * @return mixed
+     */
+    public function __get(string $value): mixed;
 
-    public function __set(string $name, $value): void;
+    /**
+     * @param  string  $name
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set(string $name, mixed $value): void;
 
-    public function __invoke(mixed $value = new StrictusUndefined());
+    /**
+     * @param  mixed  $value
+     * @return mixed
+     */
+    public function __invoke(mixed $value = new StrictusUndefined()): mixed;
 }

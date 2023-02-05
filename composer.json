@@ -10,7 +10,7 @@
         },
         {
             "name": "Wendell Adriel",
-            "email": "chris@jump24.co.uk",
+            "email": "me@wendelladriel.com",
             "role": "Developer"
         }
     ],
@@ -19,17 +19,24 @@
     },
     "autoload": {
         "psr-4": {
-            "Strictus\\Strictus\\": "src"
+            "Strictus\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Strictus\\Strictus\\Tests\\": "tests"
+            "Strictus\\Tests\\": "tests"
         }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "laravel/pint": "^1.4",
+        "pestphp/pest": "^1.22"
+    }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Strictus\Strictus\Types;
+namespace Strictus\Types;
 
-use Strictus\Strictus\Interfaces\StrictusTypeInterface;
+use Strictus\Interfaces\StrictusTypeInterface;
 use TypeError;
 
 class StrictusInstance implements StrictusTypeInterface
@@ -11,47 +11,65 @@ class StrictusInstance implements StrictusTypeInterface
 
     private string $errorMessage;
 
-    public function __construct(private mixed $value, private bool $nullable) {
+    /**
+     * @param  mixed  $value
+     * @param  bool  $nullable
+     */
+    public function __construct(private mixed $value, private bool $nullable)
+    {
         $this->instanceType = $value::class;
-        $this->errorMessage = 'Expected Instance Of ' . $this->value::class;
+        $this->errorMessage = 'Expected Instance Of '.$this->value::class;
 
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
         }
     }
 
-    public function __invoke(mixed $value = new StrictusUndefined())
+    /**
+     * @param  mixed  $value
+     * @return mixed
+     */
+    public function __invoke(mixed $value = new StrictusUndefined()): mixed
     {
-        if (!$value instanceof StrictusUndefined) {
-            if (!$value instanceof $this->instanceType) {
+        if (! $value instanceof StrictusUndefined) {
+            if (! $value instanceof $this->instanceType) {
                 if ($this->nullable && $value !== null) {
                     throw new TypeError($this->errorMessage);
                 }
             }
 
             $this->value = $value;
+
             return $this;
         }
 
         return $this->value;
     }
 
-    public function __get(string $value)
+    /**
+     * @param  string  $value
+     * @return mixed
+     */
+    public function __get(string $value): mixed
     {
         return $this->$value;
     }
 
-    public function __set(string $name, $value): void
+    /**
+     * @param  string  $name
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set(string $name, mixed $value): void
     {
         if ($name !== 'value') {
             return;
         }
 
-        if (!$value instanceof $this->instanceType) {
+        if (! $value instanceof $this->instanceType) {
             throw new TypeError($this->errorMessage);
         }
 
         $this->value = $value;
     }
 }
-

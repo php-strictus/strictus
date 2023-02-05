@@ -1,9 +1,9 @@
 <?php
 
-namespace Strictus\Strictus\Types;
+namespace Strictus\Types;
 
-use Strictus\Strictus\Interfaces\StrictusTypeInterface;
-use Strictus\Strictus\Traits\StrictusTyping;
+use Strictus\Interfaces\StrictusTypeInterface;
+use Strictus\Traits\StrictusTyping;
 
 class StrictusBoolean implements StrictusTypeInterface
 {
@@ -13,10 +13,14 @@ class StrictusBoolean implements StrictusTypeInterface
 
     private string $errorMessage = 'Expected Boolean';
 
-    public function __construct(private ?bool $value, private bool $nullable) {
+    /**
+     * @param  bool|null  $value
+     * @param  bool  $nullable
+     */
+    public function __construct(private ?bool $value, private bool $nullable)
+    {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
         }
     }
 }
-
