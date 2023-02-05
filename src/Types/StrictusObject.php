@@ -27,5 +27,7 @@ final class StrictusObject implements StrictusTypeInterface
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
         }
+
+        $this->handleInstantiation($value);
     }
 }

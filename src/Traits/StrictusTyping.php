@@ -12,7 +12,7 @@ use Strictus\Types\StrictusUndefined;
  */
 trait StrictusTyping
 {
-    public mixed $value;
+    private mixed $value;
 
     /**
      * @param  mixed  $value
@@ -20,23 +20,23 @@ trait StrictusTyping
      */
     public function __invoke(mixed $value = new StrictusUndefined()): mixed
     {
-        if (($value === null || $value instanceof StrictusUndefined) && ! $this->nullable) {
+        if ($value instanceof StrictusUndefined) {
+            return $this->value;
+        }
+
+        if ($value === null && !$this->nullable) {
             throw new StrictusTypeException($this->errorMessage);
         }
 
-        if (! ($value instanceof StrictusUndefined)) {
-            if (gettype($value) !== $this->instanceType) {
-                if ($this->nullable && $value !== null) {
-                    throw new StrictusTypeException($this->errorMessage);
-                }
+        if (gettype($value) !== $this->instanceType) {
+            if ($this->nullable && $value !== null) {
+                throw new StrictusTypeException($this->errorMessage);
             }
-
-            $this->value = $value;
-
-            return $this;
         }
 
-        return $this->value;
+        $this->value = $value;
+
+        return $this;
     }
 
     /**
@@ -67,5 +67,16 @@ trait StrictusTyping
         }
 
         $this->value = $value;
+    }
+
+    public function handleInstantiation(mixed $value)
+    {
+        if (gettype($value) !== $this->instanceType) {
+            if (!$this->nullable) {
+                throw new StrictusTypeException($this->errorMessage);
+            } else if ($value !== null) {
+                throw new StrictusTypeException($this->errorMessage);
+            }
+        }
     }
 }
