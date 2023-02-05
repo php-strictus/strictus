@@ -85,11 +85,21 @@ echo ($myString->value);
 $myString->value = 'goodbye';
 ```
 
-Both of these forms will work for any of the types.
+### Accessor Like
+
+```php
+$myString = Strictus::string('hello');
+
+echo($myString->get());
+
+$myString->set('goodbye');
+```
+
+Any of these forms will work for any of the types.
 
 ## Error Handling
 
-When you are using this package, the package will throw a `Strictus\Exceptions\StrictusTypeException` if you pass it a type that is not compatible with the intended conditions
+When you are using this package, the package will throw a `Strictus\Exceptions\StrictusTypeException` if you pass it a type that is not compatible with the intended conditions in most cases, however due to constraints within PHP itself, if you are attempting to use the `StrictusInstance` it is common for this to throw a type error before it gets to our code, which for now is beyond our control.
 
 ## Credits
 
