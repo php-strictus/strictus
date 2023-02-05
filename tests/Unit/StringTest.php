@@ -4,47 +4,52 @@ use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Strictus;
 use Strictus\Types\StrictusString;
 
-it('instantiates a string variable', function () {
-    $myInt = Strictus::string('hello');
-    expect($myInt)
+it('instantiates variable')
+    ->expect(fn () => Strictus::string('foo'))
+    ->toBeInstanceOf(StrictusString::class);
+
+it('instantiates a nullable variable', function () {
+    $value = Strictus::string(null, true);
+    expect($value)
+        ->toBeInstanceOf(StrictusString::class);
+
+    $value = Strictus::nullableString(null);
+    expect($value)
         ->toBeInstanceOf(StrictusString::class);
 });
 
-it('instantiates a nullable string variable with string method', function () {
-    $myInt = Strictus::string(null, true);
-    expect($myInt)
-        ->toBeInstanceOf(StrictusString::class);
+it('throws exception when trying to instantiate non-nullable variable with null', function () {
+    expect(fn () => Strictus::string(null))
+        ->toThrow(StrictusTypeException::class);
 });
 
-it('instantiates a nullable string variable with nullableStringeger method', function () {
-    $myInt = Strictus::nullableString(null);
-    expect($myInt)
-        ->toBeInstanceOf(StrictusString::class);
+it('throws exception when trying to instantiate variable with wrong type', function () {
+    expect(fn () => Strictus::string(10))
+        ->toThrow(StrictusTypeException::class);
 });
 
-it('throws exception when trying to instantiate a string as nullable with string method', function () {
-    expect(fn () => Strictus::string(null))->toThrow(StrictusTypeException::class);
+it('returns the value correctly', function () {
+    $value = Strictus::string('foo');
+
+    expect($value->value)
+        ->toBe('foo')
+        ->and($value())
+        ->toBe('foo');
 });
 
-it('throws exception when trying to instantiate a string with wrong type', function () {
-    expect(fn () => Strictus::string(3.14))->toThrow(StrictusTypeException::class);
-});
+it('updates the value correctly', function () {
+    $value = Strictus::string('foo');
 
-it('returns value correctly', function () {
-    $myInt = Strictus::string('hello');
+    expect($value->value)
+        ->toBe('foo')
+        ->and($value())
+        ->toBe('foo');
 
-    expect($myInt())->toEqual('hello')->and($myInt->value)->toEqual('hello');
-});
+    $value->value = 'bar';
+    expect($value->value)
+        ->toBe('bar');
 
-it('changes value correctly', function () {
-    $myInt = Strictus::string('hello');
-
-    $myInt->value = 'goodbye';
-
-    expect($myInt())->toEqual('goodbye')->and($myInt->value)->toEqual('goodbye');
-
-    $myInt2 = Strictus::string('hello');
-    $myInt2('goodbye');
-
-    expect($myInt2())->toEqual('goodbye')->and($myInt2->value)->toEqual('goodbye');
+    $value('test');
+    expect($value())
+        ->toBe('test');
 });

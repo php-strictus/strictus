@@ -1,1 +1,69 @@
 <?php
+
+use Strictus\Exceptions\StrictusTypeException;
+use Strictus\Strictus;
+use Strictus\Types\StrictusInstance;
+
+it('instantiates variable')
+    ->expect(fn () => Strictus::instance(MyClass::class, new MyClass()))
+    ->toBeInstanceOf(StrictusInstance::class);
+
+it('instantiates a nullable variable', function () {
+    $value = Strictus::instance(MyClass::class, null, true);
+    expect($value)
+        ->toBeInstanceOf(StrictusInstance::class);
+
+    $value = Strictus::nullableInstance(MyClass::class, null);
+    expect($value)
+        ->toBeInstanceOf(StrictusInstance::class);
+});
+
+it('throws exception when trying to instantiate non-nullable variable with null', function () {
+    expect(fn () => Strictus::instance(MyClass::class, null))
+        ->toThrow(StrictusTypeException::class);
+});
+
+it('throws exception when trying to instantiate variable with wrong type', function () {
+    expect(fn () => Strictus::instance(MyClass::class, 'foo'))
+        ->toThrow(StrictusTypeException::class)
+        ->and(fn () => Strictus::instance(MyClass::class, new TestClass()))
+        ->toThrow(StrictusTypeException::class);
+});
+
+it('returns the value correctly', function () {
+    $value = Strictus::instance(MyClass::class, new MyClass());
+
+    expect($value->value)
+        ->toBeInstanceOf(MyClass::class)
+        ->and($value())
+        ->toBeInstanceOf(MyClass::class);
+});
+
+it('updates the value correctly', function () {
+    $value = Strictus::instance(MyClass::class, new MyClass());
+
+    expect($value->value)
+        ->toBeInstanceOf(MyClass::class)
+        ->and($value())
+        ->toBeInstanceOf(MyClass::class);
+
+    $value->value = new MyClass();
+    expect($value->value)
+        ->toBeInstanceOf(MyClass::class);
+
+    $value(new MyClass());
+    expect($value())
+        ->toBeInstanceOf(MyClass::class);
+});
+
+class MyClass
+{
+}
+
+class TestClass
+{
+}
+
+class FooClass
+{
+}

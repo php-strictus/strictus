@@ -4,47 +4,52 @@ use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Strictus;
 use Strictus\Types\StrictusFloat;
 
-it('instantiates a float variable', function () {
-    $myFloat = Strictus::float(3.14);
-    expect($myFloat)
+it('instantiates variable')
+    ->expect(fn () => Strictus::float(10.5))
+    ->toBeInstanceOf(StrictusFloat::class);
+
+it('instantiates a nullable variable', function () {
+    $value = Strictus::float(null, true);
+    expect($value)
+        ->toBeInstanceOf(StrictusFloat::class);
+
+    $value = Strictus::nullableFloat(null);
+    expect($value)
         ->toBeInstanceOf(StrictusFloat::class);
 });
 
-it('instantiates a nullable float variable with float method', function () {
-    $myFloat = Strictus::float(null, true);
-    expect($myFloat)
-        ->toBeInstanceOf(StrictusFloat::class);
+it('throws exception when trying to instantiate non-nullable variable with null', function () {
+    expect(fn () => Strictus::float(null))
+        ->toThrow(StrictusTypeException::class);
 });
 
-it('instantiates a nullable boolean variable with nullableBoolean method', function () {
-    $myFloat = Strictus::nullableFloat(null);
-    expect($myFloat)
-        ->toBeInstanceOf(StrictusFloat::class);
+it('throws exception when trying to instantiate variable with wrong type', function () {
+    expect(fn () => Strictus::float('foo'))
+        ->toThrow(StrictusTypeException::class);
 });
 
-it('throws exception when trying to instantiate a boolean as nullable with boolean method', function () {
-    expect(fn () => Strictus::float(null))->toThrow(StrictusTypeException::class);
+it('returns the value correctly', function () {
+    $value = Strictus::float(10.5);
+
+    expect($value->value)
+        ->toBe(10.5)
+        ->and($value())
+        ->toBe(10.5);
 });
 
-it('throws exception when trying to instantiate a boolean with wrong type', function () {
-    expect(fn () => Strictus::float('foo'))->toThrow(StrictusTypeException::class);
-});
+it('updates the value correctly', function () {
+    $value = Strictus::float(10.5);
 
-it('returns value correctly', function () {
-    $myFloat = Strictus::float(3.14);
+    expect($value->value)
+        ->toBe(10.5)
+        ->and($value())
+        ->toBe(10.5);
 
-    expect($myFloat())->toEqual(3.14)->and($myFloat->value)->toEqual(3.14);
-});
+    $value->value = 5.1;
+    expect($value->value)
+        ->toBe(5.1);
 
-it('changes value correctly', function () {
-    $myFloat = Strictus::float(3.14);
-
-    $myFloat->value = 1.12;
-
-    expect($myFloat())->toEqual(1.12)->and($myFloat->value)->toEqual(1.12);
-
-    $myFloat2 = Strictus::float(3.14);
-    $myFloat2(1.12);
-
-    expect($myFloat2())->toEqual(1.12)->and($myFloat2->value)->toEqual(1.12);
+    $value(7.55);
+    expect($value())
+        ->toBe(7.55);
 });

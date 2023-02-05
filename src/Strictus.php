@@ -76,7 +76,7 @@ final class Strictus
      * @param  bool  $nullable
      * @return StrictusBoolean
      */
-    public static function boolean(mixed $boolean, bool $nullable = false): StrictusBoolean
+    public static function bool(mixed $boolean, bool $nullable = false): StrictusBoolean
     {
         return new StrictusBoolean($boolean, $nullable);
     }
@@ -85,7 +85,7 @@ final class Strictus
      * @param  mixed  $boolean
      * @return StrictusBoolean
      */
-    public static function nullableBoolean(mixed $boolean): StrictusBoolean
+    public static function nullableBool(mixed $boolean): StrictusBoolean
     {
         return new StrictusBoolean($boolean, true);
     }
@@ -129,21 +129,23 @@ final class Strictus
     }
 
     /**
+     * @param  string  $instanceType
      * @param  mixed  $instance
      * @param  bool  $nullable
      * @return StrictusInstance
      */
-    public static function instance(mixed $instance, bool $nullable = false): StrictusInstance
+    public static function instance(string $instanceType, mixed $instance, bool $nullable = false): StrictusInstance
     {
-        return new StrictusInstance($instance, $nullable);
+        return new StrictusInstance($instanceType, $instance, $nullable);
     }
 
     /**
+     * @param  string  $instanceType
      * @param  mixed  $instance
      * @return StrictusInstance
      */
-    public static function nullableInstance(mixed $instance): StrictusInstance
+    public static function nullableInstance(string $instanceType, mixed $instance): StrictusInstance
     {
-        return new StrictusInstance($instance, true);
+        return new StrictusInstance($instanceType, $instance, true);
     }
 }
