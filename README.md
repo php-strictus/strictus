@@ -83,15 +83,3 @@ When you are using this package, the package will throw a `TypeError` if you pas
 
 1) Each of the primitive types for PHP
 2) Nullable functionality
-
-Contributing
-Please see CONTRIBUTING for details.
-
-Security Vulnerabilities
-Please review our security policy on how to report security vulnerabilities.
-
-Credits
-:author_name
-All Contributors
-License
-The MIT License (MIT). Please see License File for more information.
