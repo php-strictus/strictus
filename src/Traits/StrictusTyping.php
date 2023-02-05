@@ -12,7 +12,18 @@ use Strictus\Types\StrictusUndefined;
  */
 trait StrictusTyping
 {
-    private mixed $value;
+    /**
+     * @param  mixed  $value
+     * @param  bool  $nullable
+     */
+    public function __construct(private mixed $value, private bool $nullable)
+    {
+        if ($this->nullable) {
+            $this->errorMessage .= ' Or Null';
+        }
+
+        $this->validate($value);
+    }
 
     /**
      * @param  mixed  $value
@@ -24,15 +35,7 @@ trait StrictusTyping
             return $this->value;
         }
 
-        if ($value === null && !$this->nullable) {
-            throw new StrictusTypeException($this->errorMessage);
-        }
-
-        if (gettype($value) !== $this->instanceType) {
-            if ($this->nullable && $value !== null) {
-                throw new StrictusTypeException($this->errorMessage);
-            }
-        }
+        $this->validate($value);
 
         $this->value = $value;
 
@@ -59,24 +62,23 @@ trait StrictusTyping
             return;
         }
 
-        if (
-            gettype($value) !== $this->instanceType
-            || ($this->nullable && $value !== null)
-        ) {
-            throw new StrictusTypeException($this->errorMessage);
-        }
+        $this->validate($value);
 
         $this->value = $value;
     }
 
-    public function handleInstantiation(mixed $value)
+    /**
+     * @param  mixed  $value
+     * @return void
+     */
+    private function validate(mixed $value): void
     {
-        if (gettype($value) !== $this->instanceType) {
-            if (!$this->nullable) {
-                throw new StrictusTypeException($this->errorMessage);
-            } else if ($value !== null) {
-                throw new StrictusTypeException($this->errorMessage);
-            }
+        if ($value === null && ! $this->nullable) {
+            throw new StrictusTypeException($this->errorMessage);
+        }
+
+        if (gettype($value) !== $this->instanceType && $value !== null) {
+            throw new StrictusTypeException($this->errorMessage);
         }
     }
 }

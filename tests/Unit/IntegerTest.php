@@ -4,47 +4,52 @@ use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Strictus;
 use Strictus\Types\StrictusInteger;
 
-it('instantiates a integer variable', function () {
-    $myInt = Strictus::int(3);
-    expect($myInt)
+it('instantiates variable')
+    ->expect(fn () => Strictus::int(10))
+    ->toBeInstanceOf(StrictusInteger::class);
+
+it('instantiates a nullable variable', function () {
+    $value = Strictus::int(null, true);
+    expect($value)
+        ->toBeInstanceOf(StrictusInteger::class);
+
+    $value = Strictus::nullableInt(null);
+    expect($value)
         ->toBeInstanceOf(StrictusInteger::class);
 });
 
-it('instantiates a nullable integer variable with integer method', function () {
-    $myInt = Strictus::int(null, true);
-    expect($myInt)
-        ->toBeInstanceOf(StrictusInteger::class);
+it('throws exception when trying to instantiate non-nullable variable with null', function () {
+    expect(fn () => Strictus::int(null))
+        ->toThrow(StrictusTypeException::class);
 });
 
-it('instantiates a nullable integer variable with nullableinteger method', function () {
-    $myInt = Strictus::nullableInt(null);
-    expect($myInt)
-        ->toBeInstanceOf(StrictusInteger::class);
+it('throws exception when trying to instantiate variable with wrong type', function () {
+    expect(fn () => Strictus::int('foo'))
+        ->toThrow(StrictusTypeException::class);
 });
 
-it('throws exception when trying to instantiate a integer as nullable with integer method', function () {
-    expect(fn () => Strictus::int(null))->toThrow(StrictusTypeException::class);
+it('returns the value correctly', function () {
+    $value = Strictus::int(10);
+
+    expect($value->value)
+        ->toBe(10)
+        ->and($value())
+        ->toBe(10);
 });
 
-it('throws exception when trying to instantiate a integer with wrong type', function () {
-    expect(fn () => Strictus::int('foo'))->toThrow(StrictusTypeException::class);
-});
+it('updates the value correctly', function () {
+    $value = Strictus::int(10);
 
-it('returns value correctly', function () {
-    $myInt = Strictus::int(3);
+    expect($value->value)
+        ->toBe(10)
+        ->and($value())
+        ->toBe(10);
 
-    expect($myInt())->toEqual(3)->and($myInt->value)->toEqual(3);
-});
+    $value->value = 5;
+    expect($value->value)
+        ->toBe(5);
 
-it('changes value correctly', function () {
-    $myInt = Strictus::int(3);
-
-    $myInt->value = 1;
-
-    expect($myInt())->toEqual(1)->and($myInt->value)->toEqual(1);
-
-    $myInt2 = Strictus::int(3);
-    $myInt2(1);
-
-    expect($myInt2())->toEqual(1)->and($myInt2->value)->toEqual(1);
+    $value(7);
+    expect($value())
+        ->toBe(7);
 });

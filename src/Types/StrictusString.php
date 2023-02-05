@@ -17,17 +17,4 @@ final class StrictusString implements StrictusTypeInterface
     private string $instanceType = 'string';
 
     private string $errorMessage = 'Expected String';
-
-    /**
-     * @param  mixed  $value
-     * @param  bool  $nullable
-     */
-    public function __construct(private mixed $value, private bool $nullable)
-    {
-        if ($this->nullable) {
-            $this->errorMessage .= ' Or Null';
-        }
-
-        $this->handleInstantiation($value);
-    }
 }

@@ -39,29 +39,29 @@ You will need to use the `Strictus` class (`use Strictus\Strictus;`) in any clas
 
 you can then strictly type a variable with any of the below methods:
 
-| Type       | Nullable | Method                             |
-|------------|----------|------------------------------------|
-| String     | No       | Strictus::string($value)              |
-| String     | Yes      | Strictus::string($value, true)        |
-| String     | Yes      | Strictus::nullableString($value)      |
-| Integer    | No       | Strictus::int($value)                 |
-| Integer    | Yes      | Strictus::int($value, true)           |
-| Integer    | Yes      | Strictus::nullableInt($value)         |
-| Float      | No       | Strictus::float($value)               |
-| Float      | Yes      | Strictus::float($value, true)         |
-| Float      | Yes      | Strictus::nullableFloat($value, true) |
-| Boolean    | No       | Strictus::boolean($value)             |
-| Boolean    | Yes      | Strictus::boolean($value, true)       |
-| Boolean    | Yes      | Strictus::nullableBoolean($value)     |
-| Array      | No       | Strictus::array($value)               |
-| Array      | Yes      | Strictus::array($value, true)         |
-| Array      | Yes      | Strictus::nullableArray($value)       |
-| Object     | No       | Strictus::object($value)              |
-| Object     | Yes      | Strictus::object($value, true)        |
-| Object     | Yes      | Strictus::nullableObject($value)      |
-| Class Type | No       | Strictus::instance($value)            |
-| Class Type | Yes      | Strictus::instance($value, true)      |
-| Class Type | Yes      | Strictus::nullableInstance($value)    |
+| Type       | Nullable | Method                                            |
+|------------|----------|---------------------------------------------------|
+| String     | No       | Strictus::string($value)                          |
+| String     | Yes      | Strictus::string($value, true)                    |
+| String     | Yes      | Strictus::nullableString($value)                  |
+| Integer    | No       | Strictus::int($value)                             |
+| Integer    | Yes      | Strictus::int($value, true)                       |
+| Integer    | Yes      | Strictus::nullableInt($value)                     |
+| Float      | No       | Strictus::float($value)                           |
+| Float      | Yes      | Strictus::float($value, true)                     |
+| Float      | Yes      | Strictus::nullableFloat($value, true)             |
+| Boolean    | No       | Strictus::boolean($value)                         |
+| Boolean    | Yes      | Strictus::boolean($value, true)                   |
+| Boolean    | Yes      | Strictus::nullableBoolean($value)                 |
+| Array      | No       | Strictus::array($value)                           |
+| Array      | Yes      | Strictus::array($value, true)                     |
+| Array      | Yes      | Strictus::nullableArray($value)                   |
+| Object     | No       | Strictus::object($value)                          |
+| Object     | Yes      | Strictus::object($value, true)                    |
+| Object     | Yes      | Strictus::nullableObject($value)                  |
+| Class Type | No       | Strictus::instance($instanceType, $value)         |
+| Class Type | Yes      | Strictus::instance($instanceType, $value, true)   |
+| Class Type | Yes      | Strictus::nullableInstance($instanceType, $value) |
 
 Once you have your typed variable created, you also have choices on how to use this.
 
@@ -87,7 +87,7 @@ $myString->value = 'goodbye';
 
 Both of these forms will work for any of the types.
 
-## Error Handling
+### Error Handling
 
 When you are using this package, the package will throw a `Strictus\Exceptions\StrictusTypeException` if you pass it a type that is not compatible with the intended conditions
 

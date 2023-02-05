@@ -17,17 +17,4 @@ final class StrictusObject implements StrictusTypeInterface
     private string $instanceType = 'object';
 
     private string $errorMessage = 'Expected Object';
-
-    /**
-     * @param  mixed  $value
-     * @param  bool  $nullable
-     */
-    public function __construct(mixed $value, private bool $nullable)
-    {
-        if ($this->nullable) {
-            $this->errorMessage .= ' Or Null';
-        }
-
-        $this->handleInstantiation($value);
-    }
 }

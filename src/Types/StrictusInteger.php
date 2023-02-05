@@ -17,17 +17,4 @@ final class StrictusInteger implements StrictusTypeInterface
     private string $instanceType = 'integer';
 
     private string $errorMessage = 'Expected Integer';
-
-    /**
-     * @param  mixed  $value
-     * @param  bool  $nullable
-     */
-    public function __construct(private mixed $value, private bool $nullable)
-    {
-        if ($this->nullable) {
-            $this->errorMessage .= ' Or Null';
-        }
-
-        $this->handleInstantiation($value);
-    }
 }

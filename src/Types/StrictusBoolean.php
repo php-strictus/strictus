@@ -17,17 +17,4 @@ final class StrictusBoolean implements StrictusTypeInterface
     private string $instanceType = 'boolean';
 
     private string $errorMessage = 'Expected Boolean';
-
-    /**
-     * @param  mixed  $value
-     * @param  bool  $nullable
-     */
-    public function __construct(private mixed $value, private bool $nullable)
-    {
-        if ($this->nullable) {
-            $this->errorMessage .= ' Or Null';
-        }
-
-        $this->handleInstantiation($value);
-    }
 }
