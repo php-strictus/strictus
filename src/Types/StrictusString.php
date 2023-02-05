@@ -17,7 +17,7 @@ class StrictusString implements StrictusTypeInterface
      * @param  string|null  $value
      * @param  bool  $nullable
      */
-    public function __construct(public ?string $value, private bool $nullable)
+    public function __construct(private ?string $value, private bool $nullable)
     {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
