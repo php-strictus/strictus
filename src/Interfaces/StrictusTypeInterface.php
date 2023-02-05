@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Strictus\Interfaces;
 
 use Strictus\Types\StrictusUndefined;

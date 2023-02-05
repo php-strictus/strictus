@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Strictus\Types;
 
 use Strictus\Interfaces\StrictusTypeInterface;
 use Strictus\Traits\StrictusTyping;
 
-class StrictusArray implements StrictusTypeInterface
+final class StrictusArray implements StrictusTypeInterface
 {
     use StrictusTyping;
 

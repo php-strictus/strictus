@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Strictus\Traits;
 
+use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Types\StrictusUndefined;
-use TypeError;
 
 trait StrictusTyping
 {
@@ -16,7 +18,7 @@ trait StrictusTyping
         if (! $value instanceof StrictusUndefined) {
             if (gettype($value) !== $this->instanceType) {
                 if ($this->nullable && $value !== null) {
-                    throw new TypeError($this->errorMessage);
+                    throw new StrictusTypeException($this->errorMessage);
                 }
             }
 
@@ -52,7 +54,7 @@ trait StrictusTyping
             gettype($value) !== $this->instanceType
             || ($this->nullable && $value !== null)
         ) {
-            throw new TypeError($this->errorMessage);
+            throw new StrictusTypeException($this->errorMessage);
         }
 
         $this->value = $value;

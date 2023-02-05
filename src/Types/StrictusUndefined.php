@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Strictus\Types;
 
-class StrictusUndefined
+final class StrictusUndefined
 {
 }

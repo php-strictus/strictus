@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Strictus;
 
 use Strictus\Types\StrictusArray;
@@ -10,7 +12,7 @@ use Strictus\Types\StrictusInteger;
 use Strictus\Types\StrictusObject;
 use Strictus\Types\StrictusString;
 
-class Strictus
+final class Strictus
 {
     /**
      * @param  mixed  $string
