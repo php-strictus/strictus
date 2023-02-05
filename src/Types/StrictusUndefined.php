@@ -1,8 +1,7 @@
 <?php
 
-namespace Strictus\Strictus\Types;
+namespace Strictus\Types;
 
 class StrictusUndefined
 {
-
 }

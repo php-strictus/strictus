@@ -19,7 +19,7 @@ There are a few different patterns you can use for this package.
 
 ### Creating Your Variable
 
-You will need to use the Typed class (`use Strictus\Strictus\Typed;`) in any class you wish to use this
+You will need to use the Typed class (`use Strictus\Typed;`) in any class you wish to use this
 
 you can then strictly type a variable with any of the below methods:
 
@@ -37,9 +37,9 @@ you can then strictly type a variable with any of the below methods:
 | Boolean    | No       | Typed::boolean($value)             |
 | Boolean    | Yes      | Typed::boolean($value, true)       |
 | Boolean    | Yes      | Typed::nullableBoolean($value)     |
-| Array      | No       | Typed::arr($value)                 |
-| Array      | Yes      | Typed::arr($value, true)           |
-| Array      | Yes      | Typed::nullableArr($value)         |
+| Array      | No       | Typed::array($value)               |
+| Array      | Yes      | Typed::array($value, true)         |
+| Array      | Yes      | Typed::nullableArray($value)       |
 | Object     | No       | Typed::object($value)              |
 | Object     | Yes      | Typed::object($value, true)        |
 | Object     | Yes      | Typed::nullableObject($value)      |

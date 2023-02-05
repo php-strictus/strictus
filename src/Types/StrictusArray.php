@@ -1,9 +1,9 @@
 <?php
 
-namespace Strictus\Strictus\Types;
+namespace Strictus\Types;
 
-use Strictus\Strictus\Interfaces\StrictusTypeInterface;
-use Strictus\Strictus\Traits\StrictusTyping;
+use Strictus\Interfaces\StrictusTypeInterface;
+use Strictus\Traits\StrictusTyping;
 
 class StrictusArray implements StrictusTypeInterface
 {
@@ -13,10 +13,14 @@ class StrictusArray implements StrictusTypeInterface
 
     private string $errorMessage = 'Expected Array';
 
-    public function __construct(private ?array $value, private bool $nullable) {
+    /**
+     * @param  array|null  $value
+     * @param  bool  $nullable
+     */
+    public function __construct(private ?array $value, private bool $nullable)
+    {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
         }
     }
 }
-
