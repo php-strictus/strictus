@@ -6,6 +6,12 @@
     </p>
 
 <p align="center">
+<a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/v/strictus/strictus.svg?style=flat-square" alt="Packagist"></a>
+<a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/php-v/strictus/strictus.svg?style=flat-square" alt="PHP from Packagist"></a>
+<a href="https://github.com/php-strictus/strictus/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/php-strictus/strictus/tests.yml?branch=main&label=Tests"> </a>
+</p>
+
+<p align="center">
     <a href="#introduction">Introduction</a> |
     <a href="#installation">Installation</a> |
     <a href="#usage">Usage</a> |
