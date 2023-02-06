@@ -33,7 +33,9 @@ For now, it is only single type or nullable single type, union types coming soon
 ## Installation
 You can install the package via composer:
 
-`composer require strictus/strictus`
+```bash
+composer require strictus/strictus
+```
 
 ## Usage
 
