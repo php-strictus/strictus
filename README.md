@@ -6,6 +6,12 @@
     </p>
 
 <p align="center">
+<a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/v/strictus/strictus.svg?style=flat-square" alt="Packagist"></a>
+<a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/php-v/strictus/strictus.svg?style=flat-square" alt="PHP from Packagist"></a>
+<a href="https://github.com/php-strictus/strictus/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/php-strictus/strictus/tests.yml?branch=main&label=Tests"> </a>
+</p>
+
+<p align="center">
     <a href="#introduction">Introduction</a> |
     <a href="#installation">Installation</a> |
     <a href="#usage">Usage</a> |
@@ -27,7 +33,9 @@ For now, it is only single type or nullable single type, union types coming soon
 ## Installation
 You can install the package via composer:
 
-`composer require strictus/strictus`
+```bash
+composer require strictus/strictus
+```
 
 ## Usage
 
@@ -35,9 +43,9 @@ There are a few different patterns you can use to work with this package.
 
 ### Creating Your Variables
 
-You will need to use the `Strictus` class (`use Strictus\Strictus;`) in any class you wish to use this
+You will need to use the `Strictus` class (`use Strictus\Strictus;`) in any class you wish to use this.
 
-you can then strictly type a variable with any of the below methods:
+You can then strictly type a variable with any of the below methods:
 
 | Type       | Nullable | Method                                            |
 |------------|----------|---------------------------------------------------|
@@ -63,33 +71,57 @@ you can then strictly type a variable with any of the below methods:
 | Class Type | Yes      | Strictus::instance($instanceType, $value, true)   |
 | Class Type | Yes      | Strictus::nullableInstance($instanceType, $value) |
 
-Once you have your typed variable created, you also have choices on how to use this.
+Once you have your typed variables created, you have two options on how to use them.
 
-### Function Like
+### Getting Variable Value
 
-```php
-$myString = Strictus::nullableString('hello');
-
-echo ($myString());
-
-$myString('goodbye');
-```
-
-### Object Like
+You can get the variable value using it like a function:
 
 ```php
-$myString = Strictus::nullableString('hello');
+$myString = Stricuts::string('Hello');
 
-echo ($myString->value);
-
-$myString->value = 'goodbye';
+$myString(); // Hello
 ```
 
-Both of these forms will work for any of the types.
+You can also use it like a Value Object:
+
+```php
+$myString = Stricuts::string('Hello');
+
+$myString->value; // Hello
+```
+
+### Update Variable Value
+
+You can update the variable value using it like a function:
+
+```php
+$myString = Stricuts::string('Hello');
+
+$myString('Hello, world');
+$myString(); // Hello, world
+```
+
+You can also use it like a Value Object:
+
+```php
+$myString = Stricuts::string('Hello');
+
+$myString->value = 'Hello, world';
+$myString->value; // Hello, world
+```
 
 ### Error Handling
 
-When you are using this package, the package will throw a `Strictus\Exceptions\StrictusTypeException` if you pass it a type that is not compatible with the intended conditions
+If you try to assign a value that doesn't match the type of the created variable, an
+`Strictus\Exceptions\StrictusTypeException` exception will be thrown:
+
+```php
+$myString = Stricuts::string('Hello');
+
+$myString(1); // StrictusTypeException
+$myString->value = false; // StrictusTypeException
+```
 
 ## Credits
 
