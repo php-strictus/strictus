@@ -78,7 +78,7 @@ Once you have your typed variables created, you have two options on how to use t
 You can get the variable value using it like a function:
 
 ```php
-$myString = Stricuts::string('Hello');
+$myString = Strictus::string('Hello');
 
 $myString(); // Hello
 ```
@@ -86,7 +86,7 @@ $myString(); // Hello
 You can also use it like a Value Object:
 
 ```php
-$myString = Stricuts::string('Hello');
+$myString = Strictus::string('Hello');
 
 $myString->value; // Hello
 ```
@@ -96,7 +96,7 @@ $myString->value; // Hello
 You can update the variable value using it like a function:
 
 ```php
-$myString = Stricuts::string('Hello');
+$myString = Strictus::string('Hello');
 
 $myString('Hello, world');
 $myString(); // Hello, world
@@ -105,7 +105,7 @@ $myString(); // Hello, world
 You can also use it like a Value Object:
 
 ```php
-$myString = Stricuts::string('Hello');
+$myString = Strictus::string('Hello');
 
 $myString->value = 'Hello, world';
 $myString->value; // Hello, world
@@ -117,7 +117,7 @@ If you try to assign a value that doesn't match the type of the created variable
 `Strictus\Exceptions\StrictusTypeException` exception will be thrown:
 
 ```php
-$myString = Stricuts::string('Hello');
+$myString = Strictus::string('Hello');
 
 $myString(1); // StrictusTypeException
 $myString->value = false; // StrictusTypeException
