@@ -247,6 +247,6 @@ for PHP we quickly decided a package was the right approach whilst we could get 
 
 ## Contributing
 
-All PRs are welcome.
+We welcome contributions!
 
-For major changes, please open an issue first describing what you want to add/change.
+Please visit the **[Contributing Guide](CONTRIBUTING.md)** to learn more about contributing to Strictus.
