@@ -60,3 +60,17 @@ if (! function_exists('snbool')) {
         return Strictus::nullableBool($boolean);
     }
 }
+
+if (! function_exists('sarray')) {
+    function sarray(mixed $array, bool $nullable = false)
+    {
+        return Strictus::array($array, $nullable);
+    }
+}
+
+if (! function_exists('snarray')) {
+    function snarray(mixed $array)
+    {
+        return Strictus::nullableArray($array);
+    }
+}
