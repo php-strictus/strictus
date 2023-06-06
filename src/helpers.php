@@ -32,3 +32,17 @@ if (! function_exists('snint')) {
         return Strictus::nullableInt($integer);
     }
 }
+
+if (! function_exists('sfloat')) {
+    function sfloat(mixed $float, bool $nullable = false)
+    {
+        return Strictus::float($float, $nullable);
+    }
+}
+
+if (! function_exists('snfloat')) {
+    function snfloat(mixed $float)
+    {
+        return Strictus::nullableFloat($float);
+    }
+}
