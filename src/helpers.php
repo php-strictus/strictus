@@ -88,3 +88,17 @@ if (! function_exists('snobject')) {
         return Strictus::nullableObject($object);
     }
 }
+
+if (! function_exists('sinstance')) {
+    function sinstance(string $instanceType, mixed $instance, bool $nullable = false)
+    {
+        return Strictus::instance($instanceType, $instance, $nullable);
+    }
+}
+
+if (! function_exists('sninstance')) {
+    function sninstance(string $instanceType, mixed $instance)
+    {
+        return Strictus::nullableInstance($instanceType, $instance);
+    }
+}
