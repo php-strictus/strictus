@@ -46,3 +46,17 @@ if (! function_exists('snfloat')) {
         return Strictus::nullableFloat($float);
     }
 }
+
+if (! function_exists('sbool')) {
+    function sbool(mixed $boolean, bool $nullable = false)
+    {
+        return Strictus::bool($boolean, $nullable);
+    }
+}
+
+if (! function_exists('snbool')) {
+    function snbool(mixed $boolean)
+    {
+        return Strictus::nullableBool($boolean);
+    }
+}
