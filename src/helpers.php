@@ -74,3 +74,17 @@ if (! function_exists('snarray')) {
         return Strictus::nullableArray($array);
     }
 }
+
+if (! function_exists('sobject')) {
+    function sobject(mixed $object, bool $nullable = false)
+    {
+        return Strictus::object($object, $nullable);
+    }
+}
+
+if (! function_exists('snobject')) {
+    function snobject(mixed $object)
+    {
+        return Strictus::nullableObject($object);
+    }
+}
