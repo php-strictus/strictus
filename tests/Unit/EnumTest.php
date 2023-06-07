@@ -60,6 +60,31 @@ it('updates the value correctly', function () {
     $value(MyEnum::BAR);
     expect($value())
         ->toBeInstanceOf(MyEnum::class);
+
+    $backedEnumValue = Strictus::enum(MyBackedEnum::class, MyBackedEnum::BAZ);
+
+    expect($backedEnumValue->value)
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZ)
+        ->and($backedEnumValue->value->value)
+        ->toEqual(MyBackedEnum::BAZ->value)
+        ->and($backedEnumValue())
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZ)
+        ->and($backedEnumValue()->value)
+        ->toEqual(MyBackedEnum::BAZ->value);
+
+    $backedEnumValue->value = MyBackedEnum::BAZZ;
+    expect($backedEnumValue->value)
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->and($backedEnumValue->value->value)
+        ->toEqual(MyBackedEnum::BAZZ->value);
+
+    $backedEnumValue(MyBackedEnum::BAZZ);
+    expect($backedEnumValue())
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->and($backedEnumValue()->value)
+        ->toEqual(MyBackedEnum::BAZZ->value);
 });
 
 it('updates the nullable value to enum correctly', function () {
@@ -102,4 +127,10 @@ enum MyEnum
 {
     case FOO;
     case BAR;
+}
+
+enum MyBackedEnum: int
+{
+    case BAZ = 1;
+    case BAZZ = 2;
 }
