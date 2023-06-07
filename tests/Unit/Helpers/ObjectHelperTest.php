@@ -1,7 +1,6 @@
 <?php
 
 use Strictus\Exceptions\StrictusTypeException;
-use Strictus\Strictus;
 use Strictus\Types\StrictusObject;
 
 it('instantiates variable')
