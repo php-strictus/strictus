@@ -12,10 +12,6 @@ use Strictus\Types\StrictusUndefined;
  */
 trait StrictusTyping
 {
-    /**
-     * @param  mixed  $value
-     * @param  bool  $nullable
-     */
     public function __construct(private mixed $value, private bool $nullable)
     {
         if ($this->nullable) {
@@ -25,10 +21,6 @@ trait StrictusTyping
         $this->validate($value);
     }
 
-    /**
-     * @param  mixed  $value
-     * @return mixed
-     */
     public function __invoke(mixed $value = new StrictusUndefined()): mixed
     {
         if ($value instanceof StrictusUndefined) {
@@ -42,20 +34,11 @@ trait StrictusTyping
         return $this;
     }
 
-    /**
-     * @param  string  $value
-     * @return mixed
-     */
     public function __get(string $value): mixed
     {
         return $this->value;
     }
 
-    /**
-     * @param  string  $name
-     * @param  mixed  $value
-     * @return void
-     */
     public function __set(string $name, mixed $value): void
     {
         if ($name !== 'value') {
@@ -67,10 +50,6 @@ trait StrictusTyping
         $this->value = $value;
     }
 
-    /**
-     * @param  mixed  $value
-     * @return void
-     */
     private function validate(mixed $value): void
     {
         if ($value === null && ! $this->nullable) {

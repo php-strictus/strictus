@@ -17,11 +17,6 @@ final class StrictusInstance implements StrictusTypeInterface
 
     private string $errorMessage;
 
-    /**
-     * @param  string  $instanceType
-     * @param  mixed  $value
-     * @param  bool  $nullable
-     */
     public function __construct(private string $instanceType, private mixed $value, private bool $nullable)
     {
         $this->errorMessage = 'Expected Instance Of '.$this->instanceType;
@@ -33,10 +28,6 @@ final class StrictusInstance implements StrictusTypeInterface
         $this->validate($value);
     }
 
-    /**
-     * @param  mixed  $value
-     * @return void
-     */
     private function validate(mixed $value): void
     {
         if ($value === null && ! $this->nullable) {
