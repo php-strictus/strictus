@@ -4,31 +4,31 @@ use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Types\StrictusInteger;
 
 it('instantiates variable')
-    ->expect(fn () => sint(10))
+    ->expect(fn () => s_int(10))
     ->toBeInstanceOf(StrictusInteger::class);
 
 it('instantiates a nullable variable', function () {
-    $value = sint(null, true);
+    $value = s_int(null, true);
     expect($value)
         ->toBeInstanceOf(StrictusInteger::class);
 
-    $value = snint(null);
+    $value = sn_int(null);
     expect($value)
         ->toBeInstanceOf(StrictusInteger::class);
 });
 
 it('throws exception when trying to instantiate non-nullable variable with null', function () {
-    expect(fn () => sint(null))
+    expect(fn () => s_int(null))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('throws exception when trying to instantiate variable with wrong type', function () {
-    expect(fn () => sint('foo'))
+    expect(fn () => s_int('foo'))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('returns the value correctly', function () {
-    $value = sint(10);
+    $value = s_int(10);
 
     expect($value->value)
         ->toBe(10)
@@ -37,7 +37,7 @@ it('returns the value correctly', function () {
 });
 
 it('updates the value correctly', function () {
-    $value = sint(10);
+    $value = s_int(10);
 
     expect($value->value)
         ->toBe(10)

@@ -4,31 +4,31 @@ use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Types\StrictusObject;
 
 it('instantiates variable')
-    ->expect(fn () => sobject((object) ['foo' => 'bar']))
+    ->expect(fn () => s_object((object) ['foo' => 'bar']))
     ->toBeInstanceOf(StrictusObject::class);
 
 it('instantiates a nullable variable', function () {
-    $value = sobject(null, true);
+    $value = s_object(null, true);
     expect($value)
         ->toBeInstanceOf(StrictusObject::class);
 
-    $value = snobject(null);
+    $value = sn_object(null);
     expect($value)
         ->toBeInstanceOf(StrictusObject::class);
 });
 
 it('throws exception when trying to instantiate non-nullable variable with null', function () {
-    expect(fn () => sobject(null))
+    expect(fn () => s_object(null))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('throws exception when trying to instantiate variable with wrong type', function () {
-    expect(fn () => sobject('foo'))
+    expect(fn () => s_object('foo'))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('returns the value correctly', function () {
-    $value = sobject((object) ['foo' => 'bar']);
+    $value = s_object((object) ['foo' => 'bar']);
 
     expect($value->value)
         ->toEqual((object) ['foo' => 'bar'])
@@ -37,7 +37,7 @@ it('returns the value correctly', function () {
 });
 
 it('updates the value correctly', function () {
-    $value = sobject((object) ['foo' => 'bar']);
+    $value = s_object((object) ['foo' => 'bar']);
 
     expect($value->value)
         ->toEqual((object) ['foo' => 'bar'])

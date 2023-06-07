@@ -4,31 +4,31 @@ use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Types\StrictusArray;
 
 it('instantiates variable')
-    ->expect(fn () => sarray([1, 2, 3]))
+    ->expect(fn () => s_array([1, 2, 3]))
     ->toBeInstanceOf(StrictusArray::class);
 
 it('instantiates a nullable variable', function () {
-    $value = sarray(null, true);
+    $value = s_array(null, true);
     expect($value)
         ->toBeInstanceOf(StrictusArray::class);
 
-    $value = snarray(null);
+    $value = sn_array(null);
     expect($value)
         ->toBeInstanceOf(StrictusArray::class);
 });
 
 it('throws exception when trying to instantiate non-nullable variable with null', function () {
-    expect(fn () => sarray(null))
+    expect(fn () => s_array(null))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('throws exception when trying to instantiate variable with wrong type', function () {
-    expect(fn () => sarray('foo'))
+    expect(fn () => s_array('foo'))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('returns the value correctly', function () {
-    $value = sarray([1, 2, 3]);
+    $value = s_array([1, 2, 3]);
 
     expect($value->value)
         ->toEqualCanonicalizing([1, 2, 3])
@@ -37,7 +37,7 @@ it('returns the value correctly', function () {
 });
 
 it('updates the value correctly', function () {
-    $value = sarray([1, 2, 3]);
+    $value = s_array([1, 2, 3]);
 
     expect($value->value)
         ->toEqualCanonicalizing([1, 2, 3])

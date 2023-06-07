@@ -4,31 +4,31 @@ use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Types\StrictusBoolean;
 
 it('instantiates variable')
-    ->expect(fn () => sbool(true))
+    ->expect(fn () => s_bool(true))
     ->toBeInstanceOf(StrictusBoolean::class);
 
 it('instantiates a nullable variable', function () {
-    $value = sbool(null, true);
+    $value = s_bool(null, true);
     expect($value)
         ->toBeInstanceOf(StrictusBoolean::class);
 
-    $value = snbool(null);
+    $value = sn_bool(null);
     expect($value)
         ->toBeInstanceOf(StrictusBoolean::class);
 });
 
 it('throws exception when trying to instantiate non-nullable variable with null', function () {
-    expect(fn () => sbool(null))
+    expect(fn () => s_bool(null))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('throws exception when trying to instantiate variable with wrong type', function () {
-    expect(fn () => sbool('foo'))
+    expect(fn () => s_bool('foo'))
         ->toThrow(StrictusTypeException::class);
 });
 
 it('returns the value correctly', function () {
-    $value = sbool(true);
+    $value = s_bool(true);
 
     expect($value->value)
         ->toBeTrue()
@@ -37,7 +37,7 @@ it('returns the value correctly', function () {
 });
 
 it('updates the value correctly', function () {
-    $value = sbool(true);
+    $value = s_bool(true);
 
     expect($value->value)
         ->toBeTrue()
