@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Strictus;
 use Strictus\Types\StrictusFloat;

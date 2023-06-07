@@ -1,23 +1,21 @@
 <div align="center">
-    <p>
-        <img src="https://github.com/php-strictus/strictus/raw/main/art/logo.png" alt="Strictus" width="400"/>
-        <h1>Strictus</h1>
-        Strict Typing on inline variables for PHP
-    </p>
+    <img src="https://github.com/php-strictus/strictus/raw/main/art/logo.png" alt="Strictus" width="400"/>
+    <h1>Strictus</h1>
+    <h4>Strict Typing on inline variables for PHP</h4>
+</div>
 
-<p align="center">
-<a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/v/strictus/strictus.svg?style=flat-square" alt="Packagist"></a>
-<a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/php-v/strictus/strictus.svg?style=flat-square" alt="PHP from Packagist"></a>
-<a href="https://github.com/php-strictus/strictus/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/php-strictus/strictus/tests.yml?branch=main&label=Tests"> </a>
-</p>
+<div align="center">
+    <a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/v/strictus/strictus.svg?style=flat-square" alt="Packagist"></a>
+    <a href="https://packagist.org/packages/strictus/strictus"><img src="https://img.shields.io/packagist/php-v/strictus/strictus.svg?style=flat-square" alt="PHP from Packagist"></a>
+    <a href="https://github.com/php-strictus/strictus/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/php-strictus/strictus/tests.yml?branch=main&label=Tests"> </a>
+</div>
 
-<p align="center">
+<div align="center">
     <a href="#introduction">Introduction</a> |
     <a href="#installation">Installation</a> |
     <a href="#usage">Usage</a> |
     <a href="#credits">Credits</a> |
     <a href="#contributing">Contributing</a>
-</p>
 </div>
 
 ## Introduction
