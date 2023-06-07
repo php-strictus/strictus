@@ -133,9 +133,17 @@ $person = Strictus::object((object) ['name' => 'Wendell', 'country' => 'BR']);
 //instantiates a class
 $calculator = Strictus::instance(CalculatorClass::class, new CalculatorClass());
 
+//instantiates an enum
+$role = Strictus::enum(Role::class, Role::CONTRIBUTOR);
+
 class CalculatorClass
 {
     //...
+}
+
+enum Role
+{
+    case CONTRIBUTOR;
 }
 ```
 
@@ -220,6 +228,9 @@ You can use the following methods to create variables:
 | Class Type | No       | Strictus::instance($instanceType, $value)         |
 | Class Type | Yes      | Strictus::instance($instanceType, $value, true)   |
 | Class Type | Yes      | Strictus::nullableInstance($instanceType, $value) |
+| Enum Type  | No       | Strictus::enum($enumType, $value)                 |
+| Enum Type  | Yes      | Strictus::enum($enumType, $value, true)           |
+| Enum Type  | Yes      | Strictus::nullableEnum($enumType, $value)         |
 
 ### Error Handling
 
