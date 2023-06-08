@@ -6,6 +6,7 @@ namespace Strictus;
 
 use Strictus\Types\StrictusArray;
 use Strictus\Types\StrictusBoolean;
+use Strictus\Types\StrictusEnum;
 use Strictus\Types\StrictusFloat;
 use Strictus\Types\StrictusInstance;
 use Strictus\Types\StrictusInteger;
@@ -82,5 +83,15 @@ final class Strictus
     public static function nullableInstance(string $instanceType, mixed $instance): StrictusInstance
     {
         return new StrictusInstance($instanceType, $instance, true);
+    }
+
+    public static function enum(string $enumType, mixed $enum, bool $nullable = false): StrictusEnum
+    {
+        return new StrictusEnum($enumType, $enum, $nullable);
+    }
+
+    public static function nullableEnum(string $enumType, mixed $enum): StrictusEnum
+    {
+        return new StrictusEnum($enumType, $enum, true);
     }
 }
