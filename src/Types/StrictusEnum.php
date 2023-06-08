@@ -19,7 +19,7 @@ final class StrictusEnum implements StrictusTypeInterface
 
     public function __construct(private string $enumType, private mixed $value, private bool $nullable)
     {
-        $this->errorMessage = 'Expected Enum Of '.$this->enumType;
+        $this->errorMessage = 'Expected Enum Of ' . $this->enumType;
 
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
