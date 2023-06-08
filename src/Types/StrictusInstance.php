@@ -19,7 +19,7 @@ final class StrictusInstance implements StrictusTypeInterface
 
     public function __construct(private string $instanceType, private mixed $value, private bool $nullable)
     {
-        $this->errorMessage = 'Expected Instance Of '.$this->instanceType;
+        $this->errorMessage = 'Expected Instance Of ' . $this->instanceType;
 
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';

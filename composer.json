@@ -30,14 +30,17 @@
         "php": "^8.1"
     },
     "scripts": {
-        "lint": "pint",
-        "test:lint": "pint --test",
-        "test:unit": "./vendor/bin/pest --order-by random",
-        "test": ["@test:lint", "@test:unit"]
+        "lint": ["pint"],
+        "test:lint": ["pint --test"],
+        "test:unit": ["pest --order-by random"],
+        "test": [
+          "@test:lint",
+          "@test:unit"
+        ]
     },
     "require-dev": {
-        "laravel/pint": "^1.4.1",
-        "pestphp/pest": "^1.22.4"
+        "laravel/pint": "^1.10.1",
+        "pestphp/pest": "^1.23.0"
     },
     "config": {
         "sort-packages": true,
