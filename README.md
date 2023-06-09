@@ -230,6 +230,11 @@ You can use the following methods to create variables:
 | Enum Type  | Yes      | Strictus::enum($enumType, $value, true)           |
 | Enum Type  | Yes      | Strictus::nullableEnum($enumType, $value)         |
 
+### Immutable variables
+
+If you want to create immutable variables, you can use `ImmutableStrictus` with the same methods in [`Variable methods`](#variable-methods). The
+immutable variables can't assign a new value.
+
 ### Error Handling
 
 If you try to assign a value that doesn't match the type of the created variable, an
@@ -240,6 +245,16 @@ $score = Strictus::int(100);
 
 $score('one hundred'); //StrictusTypeException
 $score->value = false; //StrictusTypeException
+```
+
+And if you try to assign a value of the created immutable variable, an
+`Strictus\Exceptions\ImmutableStrictusException` exception will be thrown:
+
+```php
+$immutableScore = ImmutableStrictus::int(100);
+
+$immutableScore(50); //ImmutableStrictusException
+$immutableScore->value = 50; //ImmutableStrictusException
 ```
 
 ## Motivation
