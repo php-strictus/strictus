@@ -17,12 +17,16 @@ final class StrictusInstance implements StrictusTypeInterface
 
     private string $errorMessage;
 
-    public function __construct(private string $instanceType, private mixed $value, private bool $nullable)
+    public function __construct(private string $instanceType, private mixed $value, private bool $nullable, private bool $immutable = false)
     {
         $this->errorMessage = 'Expected Instance Of ' . $this->instanceType;
 
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
+        }
+
+        if ($this->immutable) {
+            $this->errorMessage .= ' And Immutable';
         }
 
         $this->validate($value);

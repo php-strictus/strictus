@@ -17,12 +17,16 @@ final class StrictusEnum implements StrictusTypeInterface
 
     private string $errorMessage;
 
-    public function __construct(private string $enumType, private mixed $value, private bool $nullable)
+    public function __construct(private string $enumType, private mixed $value, private bool $nullable, private bool $immutable = false)
     {
         $this->errorMessage = 'Expected Enum Of ' . $this->enumType;
 
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
+        }
+
+        if ($this->immutable) {
+            $this->errorMessage .= ' And Immutable';
         }
 
         $this->validate($value);
