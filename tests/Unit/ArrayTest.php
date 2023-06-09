@@ -70,3 +70,27 @@ it('can\'t updates the immutable value', function () {
         ->and(fn () => $value([4, 5, 6]))
         ->toThrow(ImmutableStrictusException::class);
 });
+
+it('can clone a new variable', function () {
+    $value = Strictus::array([1, 2, 3]);
+    $newValue = $value->clone([4, 5, 6]);
+    expect($value->value)
+        ->toEqual([1, 2, 3])
+        ->and($value())
+        ->toEqual([1, 2, 3])
+        ->and($newValue->value)
+        ->toEqual([4, 5, 6])
+        ->and($newValue())
+        ->toEqual([4, 5, 6]);
+
+    $immutableValue = ImmutableStrictus::array([1, 2, 3]);
+    $newImmutableValue = $immutableValue->clone([4, 5, 6]);
+    expect($immutableValue->value)
+        ->toEqual([1, 2, 3])
+        ->and($immutableValue())
+        ->toEqual([1, 2, 3])
+        ->and($newImmutableValue->value)
+        ->toEqual([4, 5, 6])
+        ->and($newImmutableValue())
+        ->toEqual([4, 5, 6]);
+});

@@ -230,6 +230,38 @@ it('can\'t updates the immutable value', function () {
         ->toThrow(ImmutableStrictusException::class);
 });
 
+it('can clone a new variable', function () {
+    $value = Strictus::enum(MyEnum::class, MyEnum::FOO);
+    $newValue = $value->clone(MyEnum::BAR);
+    expect($value->value)
+        ->toBeInstanceOf(MyEnum::class)
+        ->toEqual(MyEnum::FOO)
+        ->and($value())
+        ->toBeInstanceOf(MyEnum::class)
+        ->toEqual(MyEnum::FOO)
+        ->and($newValue->value)
+        ->toBeInstanceOf(MyEnum::class)
+        ->toEqual(MyEnum::BAR)
+        ->and($newValue())
+        ->toBeInstanceOf(MyEnum::class)
+        ->toEqual(MyEnum::BAR);
+
+    $immutableValue = ImmutableStrictus::enum(MyBackedEnum::class, MyBackedEnum::BAZ);
+    $newImmutableValue = $immutableValue->clone(MyBackedEnum::BAZZ);
+    expect($immutableValue->value)
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZ)
+        ->and($immutableValue())
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZ)
+        ->and($newImmutableValue->value)
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZZ)
+        ->and($newImmutableValue())
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZZ);
+});
+
 enum MyEnum
 {
     case FOO;
