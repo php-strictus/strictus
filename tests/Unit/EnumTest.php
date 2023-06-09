@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
+use Strictus\ImmutableStrictus;
 use Strictus\Strictus;
 use Strictus\Types\StrictusEnum;
 
@@ -211,6 +213,21 @@ it('updates the enum value to nullable correctly', function () {
     $backedEnumValue(null);
     expect($backedEnumValue())
         ->toBeNull();
+});
+
+it('can\'t updates the immutable value', function () {
+    $value = ImmutableStrictus::nullableEnum(MyBackedEnum::class, MyBackedEnum::BAZZ);
+
+    expect($value->value)
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZZ)
+        ->and($value())
+        ->toBeInstanceOf(MyBackedEnum::class)
+        ->toEqual(MyBackedEnum::BAZZ)
+        ->and(fn () => $value->value = MyBackedEnum::BAZ)
+        ->toThrow(ImmutableStrictusException::class)
+        ->and(fn () => $value(MyBackedEnum::BAZ))
+        ->toThrow(ImmutableStrictusException::class);
 });
 
 enum MyEnum

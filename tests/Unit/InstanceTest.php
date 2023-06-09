@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
+use Strictus\ImmutableStrictus;
 use Strictus\Strictus;
 use Strictus\Types\StrictusInstance;
 
@@ -56,6 +58,19 @@ it('updates the value correctly', function () {
     $value(new MyClass());
     expect($value())
         ->toBeInstanceOf(MyClass::class);
+});
+
+it('can\'t updates the immutable value', function () {
+    $value = ImmutableStrictus::instance(MyClass::class, new MyClass());
+
+    expect($value->value)
+        ->toBeInstanceOf(MyClass::class)
+        ->and($value())
+        ->toBeInstanceOf(MyClass::class)
+        ->and(fn () => $value->value = new MyClass())
+        ->toThrow(ImmutableStrictusException::class)
+        ->and(fn () => $value(new MyClass()))
+        ->toThrow(ImmutableStrictusException::class);
 });
 
 class MyClass
