@@ -235,6 +235,24 @@ You can use the following methods to create variables:
 If you want to create immutable variables, you can use `ImmutableStrictus` with the same methods in [`Variable methods`](#variable-methods). The
 immutable variables can't assign a new value.
 
+### Cloning
+
+There's a `clone` method on every variable which accepts value to override:
+
+```php
+$score = Strictus::int(100);
+$cloneScore = $score->clone(50);
+
+$score(); //100
+$cloneScore(); //50
+
+$dummy = ImmutableStrictus::string('foo);
+$cloneDummy = $dummy->clone('bar);
+
+$dummy(); //'foo'
+$cloneDummy(); //'bar'
+```
+
 ### Error Handling
 
 If you try to assign a value that doesn't match the type of the created variable, an
