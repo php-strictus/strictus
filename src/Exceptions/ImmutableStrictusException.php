@@ -6,6 +6,9 @@ namespace Strictus\Exceptions;
 
 use RuntimeException;
 
+/**
+ * @internal
+ */
 final class ImmutableStrictusException extends RuntimeException
 {
 }
