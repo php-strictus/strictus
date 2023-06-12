@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Strictus\Traits;
 
+/**
+ * @internal
+ */
 trait Immutable
 {
     private bool $immutable = false;
