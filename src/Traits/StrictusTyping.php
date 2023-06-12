@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Strictus\Traits;
 
+use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Types\StrictusUndefined;
 
@@ -12,6 +13,8 @@ use Strictus\Types\StrictusUndefined;
  */
 trait StrictusTyping
 {
+    use Immutable;
+
     public function __construct(private mixed $value, private bool $nullable)
     {
         if ($this->nullable) {
@@ -26,6 +29,8 @@ trait StrictusTyping
         if ($value instanceof StrictusUndefined) {
             return $this->value;
         }
+
+        $this->immutableValidate();
 
         $this->validate($value);
 
@@ -45,6 +50,8 @@ trait StrictusTyping
             return;
         }
 
+        $this->immutableValidate();
+
         $this->validate($value);
 
         $this->value = $value;
@@ -59,5 +66,14 @@ trait StrictusTyping
         if (gettype($value) !== $this->instanceType && $value !== null) {
             throw new StrictusTypeException($this->errorMessage);
         }
+    }
+
+    private function immutableValidate(): void
+    {
+        if (false === $this->immutable) {
+            return;
+        }
+
+        throw new ImmutableStrictusException('Cannot change immutable value');
     }
 }

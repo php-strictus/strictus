@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Strictus;
 use Strictus\Types\StrictusArray;
@@ -54,4 +55,17 @@ it('updates the value correctly', function () {
     $value([7, 8, 9]);
     expect($value())
         ->toEqualCanonicalizing([7, 8, 9]);
+});
+
+it('can\'t updates the immutable value', function () {
+    $value = Strictus::array([1, 2, 3])->immutable();
+
+    expect($value->value)
+        ->toBe([1, 2, 3])
+        ->and($value())
+        ->toBe([1, 2, 3])
+        ->and(fn () => $value->value = [4, 5, 6])
+        ->toThrow(ImmutableStrictusException::class)
+        ->and(fn () => $value([4, 5, 6]))
+        ->toThrow(ImmutableStrictusException::class);
 });

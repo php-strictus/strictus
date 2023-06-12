@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Strictus;
 use Strictus\Types\StrictusFloat;
@@ -54,4 +55,17 @@ it('updates the value correctly', function () {
     $value(7.55);
     expect($value())
         ->toBe(7.55);
+});
+
+it('can\'t updates the immutable value', function () {
+    $value = Strictus::float(10.5)->immutable();
+
+    expect($value->value)
+        ->toEqual(10.5)
+        ->and($value())
+        ->toEqual(10.5)
+        ->and(fn () => $value->value = 7.55)
+        ->toThrow(ImmutableStrictusException::class)
+        ->and(fn () => $value(7.55))
+        ->toThrow(ImmutableStrictusException::class);
 });

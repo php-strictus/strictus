@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
 use Strictus\Strictus;
 use Strictus\Types\StrictusString;
@@ -54,4 +55,17 @@ it('updates the value correctly', function () {
     $value('test');
     expect($value())
         ->toBe('test');
+});
+
+it('can\'t updates the immutable value', function () {
+    $value = Strictus::string('foo')->immutable();
+
+    expect($value->value)
+        ->toEqual('foo')
+        ->and($value())
+        ->toEqual('foo')
+        ->and(fn () => $value->value = 'bar')
+        ->toThrow(ImmutableStrictusException::class)
+        ->and(fn () => $value('bar'))
+        ->toThrow(ImmutableStrictusException::class);
 });
