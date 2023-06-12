@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
-use Strictus\ImmutableStrictus;
 use Strictus\Strictus;
 use Strictus\Types\StrictusBoolean;
 
@@ -59,7 +58,7 @@ it('updates the value correctly', function () {
 });
 
 it('can\'t updates the immutable value', function () {
-    $value = ImmutableStrictus::bool(true);
+    $value = Strictus::bool(true)->immutable();
 
     expect($value->value)
         ->toBe(true)
@@ -69,36 +68,4 @@ it('can\'t updates the immutable value', function () {
         ->toThrow(ImmutableStrictusException::class)
         ->and(fn () => $value(false))
         ->toThrow(ImmutableStrictusException::class);
-});
-
-it('can clone a new variable', function () {
-    $value = Strictus::bool(true);
-    $newValue = $value->clone(false);
-    expect($value->value)
-        ->toBeBool()
-        ->toEqual(true)
-        ->and($value())
-        ->toBeBool()
-        ->toEqual(true)
-        ->and($newValue->value)
-        ->toBeBool()
-        ->toEqual(false)
-        ->and($newValue())
-        ->toBeBool()
-        ->toEqual(false);
-
-    $immutableValue = ImmutableStrictus::bool(true);
-    $newImmutableValue = $immutableValue->clone(false);
-    expect($immutableValue->value)
-        ->toBeBool()
-        ->toEqual(true)
-        ->and($immutableValue())
-        ->toBeBool()
-        ->toEqual(true)
-        ->and($newImmutableValue->value)
-        ->toBeBool()
-        ->toEqual(false)
-        ->and($newImmutableValue())
-        ->toBeBool()
-        ->toEqual(false);
 });

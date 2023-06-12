@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
-use Strictus\ImmutableStrictus;
 use Strictus\Strictus;
 use Strictus\Types\StrictusArray;
 
@@ -59,7 +58,7 @@ it('updates the value correctly', function () {
 });
 
 it('can\'t updates the immutable value', function () {
-    $value = ImmutableStrictus::array([1, 2, 3]);
+    $value = Strictus::array([1, 2, 3])->immutable();
 
     expect($value->value)
         ->toBe([1, 2, 3])
@@ -69,28 +68,4 @@ it('can\'t updates the immutable value', function () {
         ->toThrow(ImmutableStrictusException::class)
         ->and(fn () => $value([4, 5, 6]))
         ->toThrow(ImmutableStrictusException::class);
-});
-
-it('can clone a new variable', function () {
-    $value = Strictus::array([1, 2, 3]);
-    $newValue = $value->clone([4, 5, 6]);
-    expect($value->value)
-        ->toEqual([1, 2, 3])
-        ->and($value())
-        ->toEqual([1, 2, 3])
-        ->and($newValue->value)
-        ->toEqual([4, 5, 6])
-        ->and($newValue())
-        ->toEqual([4, 5, 6]);
-
-    $immutableValue = ImmutableStrictus::array([1, 2, 3]);
-    $newImmutableValue = $immutableValue->clone([4, 5, 6]);
-    expect($immutableValue->value)
-        ->toEqual([1, 2, 3])
-        ->and($immutableValue())
-        ->toEqual([1, 2, 3])
-        ->and($newImmutableValue->value)
-        ->toEqual([4, 5, 6])
-        ->and($newImmutableValue())
-        ->toEqual([4, 5, 6]);
 });

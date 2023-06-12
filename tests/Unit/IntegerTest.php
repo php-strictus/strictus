@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
-use Strictus\ImmutableStrictus;
 use Strictus\Strictus;
 use Strictus\Types\StrictusInteger;
 
@@ -59,7 +58,7 @@ it('updates the value correctly', function () {
 });
 
 it('can\'t updates the immutable value', function () {
-    $value = ImmutableStrictus::int(10);
+    $value = Strictus::int(10)->immutable();
 
     expect($value->value)
         ->toBe(10)
@@ -69,30 +68,4 @@ it('can\'t updates the immutable value', function () {
         ->toThrow(ImmutableStrictusException::class)
         ->and(fn () => $value(7))
         ->toThrow(ImmutableStrictusException::class);
-});
-
-it('can clone a new variable', function () {
-    $value = Strictus::int(10);
-    $newValue = $value->clone(12);
-
-    expect($value->value)
-        ->toEqual(10)
-        ->and($value())
-        ->toEqual(10)
-        ->and($newValue->value)
-        ->toEqual(12)
-        ->and($newValue())
-        ->toEqual(12);
-
-    $immutableValue = ImmutableStrictus::int(10);
-    $newImmutableValue = $value->clone(12);
-
-    expect($immutableValue->value)
-        ->toEqual(10)
-        ->and($immutableValue())
-        ->toEqual(10)
-        ->and($newImmutableValue->value)
-        ->toEqual(12)
-        ->and($newImmutableValue())
-        ->toEqual(12);
 });

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;
-use Strictus\ImmutableStrictus;
 use Strictus\Strictus;
 use Strictus\Types\StrictusInstance;
 
@@ -61,7 +60,7 @@ it('updates the value correctly', function () {
 });
 
 it('can\'t updates the immutable value', function () {
-    $value = ImmutableStrictus::instance(MyClass::class, new MyClass());
+    $value = Strictus::instance(MyClass::class, new MyClass())->immutable();
 
     expect($value->value)
         ->toBeInstanceOf(MyClass::class)
@@ -71,30 +70,6 @@ it('can\'t updates the immutable value', function () {
         ->toThrow(ImmutableStrictusException::class)
         ->and(fn () => $value(new MyClass()))
         ->toThrow(ImmutableStrictusException::class);
-});
-
-it('can clone a new variable', function () {
-    $value = Strictus::instance(MyClass::class, new MyClass());
-    $newValue = $value->clone(new MyClass());
-    expect($value->value)
-        ->toBeInstanceOf(MyClass::class)
-        ->and($value())
-        ->toBeInstanceOf(MyClass::class)
-        ->and($newValue->value)
-        ->toBeInstanceOf(MyClass::class)
-        ->and($newValue())
-        ->toBeInstanceOf(MyClass::class);
-
-    $immutableValue = ImmutableStrictus::instance(MyClass::class, new MyClass());
-    $newImmutableValue = $immutableValue->clone(new MyClass());
-    expect($immutableValue->value)
-        ->toBeInstanceOf(MyClass::class)
-        ->and($immutableValue())
-        ->toBeInstanceOf(MyClass::class)
-        ->and($newImmutableValue->value)
-        ->toBeInstanceOf(MyClass::class)
-        ->and($newImmutableValue())
-        ->toBeInstanceOf(MyClass::class);
 });
 
 class MyClass
