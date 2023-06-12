@@ -1,53 +1,70 @@
 {
-    "name": "strictus/strictus",
-    "description": "Strict Typing for local variables in PHP",
-    "type": "library",
-    "keywords": ["php", "type", "typing", "strict", "strict types", "strict typing"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Christopher Miller",
-            "email": "chris@jump24.co.uk",
-            "role": "Developer"
-        },
-        {
-            "name": "Wendell Adriel",
-            "email": "me@wendelladriel.com",
-            "role": "Developer"
-        }
+  "name": "strictus/strictus",
+  "description": "Strict Typing for local variables in PHP",
+  "type": "library",
+  "keywords": [
+    "php",
+    "type",
+    "typing",
+    "strict",
+    "strict types",
+    "strict typing"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christopher Miller",
+      "email": "chris@jump24.co.uk",
+      "role": "Developer"
+    },
+    {
+      "name": "Wendell Adriel",
+      "email": "me@wendelladriel.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Strictus\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Strictus\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": "^8.1"
+  },
+  "scripts": {
+    "lint": [
+      "pint"
     ],
-    "autoload": {
-        "psr-4": {
-            "Strictus\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Strictus\\Tests\\": "tests"
-        }
-    },
-    "require": {
-        "php": "^8.1"
-    },
-    "scripts": {
-        "lint": ["pint"],
-        "test:lint": ["pint --test"],
-        "test:unit": ["pest --order-by random"],
-        "test": [
-          "@test:lint",
-          "@test:unit"
-        ]
-    },
-    "require-dev": {
-        "laravel/pint": "^1.10.1",
-        "pestphp/pest": "^1.23.0"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "test:lint": [
+      "pint --test"
+    ],
+    "test:stan": [
+      "phpstan analyse"
+    ],
+    "test:unit": [
+      "pest --order-by random"
+    ],
+    "test": [
+      "@test:lint",
+      "@test:unit"
+    ]
+  },
+  "require-dev": {
+    "laravel/pint": "^1.10.1",
+    "pestphp/pest": "^1.23.0",
+    "phpstan/phpstan": "^1.10"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
