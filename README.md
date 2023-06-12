@@ -232,25 +232,14 @@ You can use the following methods to create variables:
 
 ### Immutable variables
 
-If you want to create immutable variables, you can use `ImmutableStrictus` with the same methods in [`Variable methods`](#variable-methods). The
-immutable variables can't assign a new value.
-
-### Cloning
-
-There's a `clone` method on every variable which accepts value to override:
+If you want to create immutable variables, you can use `->immutable()` method. And if you try to assign a value of the
+created immutable variable, an `Strictus\Exceptions\ImmutableStrictusException` exception will be thrown:
 
 ```php
-$score = Strictus::int(100);
-$cloneScore = $score->clone(50);
+$immutableScore = Strictus::int(100)->immutable();
 
-$score(); //100
-$cloneScore(); //50
-
-$dummy = ImmutableStrictus::string('foo);
-$cloneDummy = $dummy->clone('bar);
-
-$dummy(); //'foo'
-$cloneDummy(); //'bar'
+$immutableScore(50); //ImmutableStrictusException
+$immutableScore->value = 50; //ImmutableStrictusException
 ```
 
 ### Error Handling
@@ -263,16 +252,6 @@ $score = Strictus::int(100);
 
 $score('one hundred'); //StrictusTypeException
 $score->value = false; //StrictusTypeException
-```
-
-And if you try to assign a value of the created immutable variable, an
-`Strictus\Exceptions\ImmutableStrictusException` exception will be thrown:
-
-```php
-$immutableScore = ImmutableStrictus::int(100);
-
-$immutableScore(50); //ImmutableStrictusException
-$immutableScore->value = 50; //ImmutableStrictusException
 ```
 
 ## Motivation
