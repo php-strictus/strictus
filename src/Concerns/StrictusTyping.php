@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Strictus\Traits;
+namespace Strictus\Concerns;
 
 use Strictus\Exceptions\ImmutableStrictusException;
 use Strictus\Exceptions\StrictusTypeException;

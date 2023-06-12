@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Strictus\Types;
 
+use Strictus\Concerns\StrictusTyping;
 use Strictus\Interfaces\StrictusTypeInterface;
-use Strictus\Traits\StrictusTyping;
 
 /**
  * @internal
