@@ -13,14 +13,12 @@ use Strictus\Types\StrictusUndefined;
  */
 trait StrictusTyping
 {
-    public function __construct(private mixed $value, private bool $nullable, private bool $immutable = false)
+    use Immutable;
+
+    public function __construct(private mixed $value, private bool $nullable)
     {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
-        }
-
-        if ($this->immutable) {
-            $this->errorMessage .= ' And Immutability';
         }
 
         $this->validate($value);
