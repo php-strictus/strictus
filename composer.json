@@ -1,6 +1,6 @@
 {
     "name": "strictus/strictus",
-    "description": "Strict Typing on inline variables for PHP",
+    "description": "Strict Typing for local variables in PHP",
     "type": "library",
     "keywords": ["php", "type", "typing", "strict", "strict types", "strict typing"],
     "license": "MIT",

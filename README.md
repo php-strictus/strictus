@@ -1,7 +1,7 @@
 <div align="center">
     <img src="https://github.com/php-strictus/strictus/raw/main/art/logo.png" alt="Strictus" width="400"/>
     <h1>Strictus</h1>
-    <h4>Strict Typing on inline variables for PHP</h4>
+    <h4>Strict Typing for local variables in PHP</h4>
 </div>
 
 <div align="center">
@@ -20,15 +20,15 @@
 
 ## Introduction
 
-Strictus brings **strict typing** on inline variables into PHP.
+Strictus brings **strict typing** for local variables into PHP.
 
-With Strictus you can control the types of internal variables using a couple of different patterns.
+With Strictus, you can control the types of local variables using different patterns.
 
 ---
 
 `💣` **The problem:**
 
-PHP has no support to strongly typed in line Variables.
+PHP has no support for strongly typed Local Variables.
 
 Here is an illustrative example of a basic mistake:
 
@@ -156,7 +156,7 @@ echo $name(); //Wendell
 
 echo $score() - 10; //90
 
-if ($isActive() === true) {
+if ($isActive()) {
     //do your logic here
 }
 
@@ -195,9 +195,9 @@ echo $score(); //0
 
 ### Variable methods
 
-Currently Strictus supports single type or nullable single type.
+Currently, Strictus supports single type or nullable single type.
 
-```shell
+```
 🗓️ Comming soon: Union types!
 ```
 
@@ -230,10 +230,10 @@ You can use the following methods to create variables:
 | Enum Type  | Yes      | Strictus::enum($enumType, $value, true)           |
 | Enum Type  | Yes      | Strictus::nullableEnum($enumType, $value)         |
 
-### Immutable variables
+### Immutable Variables
 
-If you want to create immutable variables, you can use `->immutable()` method. And if you try to assign a value of the
-created immutable variable, an `Strictus\Exceptions\ImmutableStrictusException` exception will be thrown:
+If you want to create immutable variables, you can use the `->immutable()` method. If you try to assign a new value
+to an Immutable Variable, an `Strictus\Exceptions\ImmutableStrictusException` exception will be thrown:
 
 ```php
 $immutableScore = Strictus::int(100)->immutable();
@@ -254,10 +254,20 @@ $score('one hundred'); //StrictusTypeException
 $score->value = false; //StrictusTypeException
 ```
 
+If you try to assign a new value to an Immutable Variable, an
+`Strictus\Exceptions\ImmutableStrictusException` exception will be thrown:
+
+```php
+$immutableScore = Strictus::int(100)->immutable();
+
+$immutableScore(50); //ImmutableStrictusException
+$immutableScore->value = 50; //ImmutableStrictusException
+```
+
 ## Motivation
 
 Following a discussion on Twitter between **[Christopher Miller](https://twitter.com/ccmiller2018)** and
-**[Wendell Adriel](https://twitter.com/wendell_adriel)** around the lack of strongly typed inline variables
+**[Wendell Adriel](https://twitter.com/wendell_adriel)** around the lack of strongly typed local variables
 for PHP we quickly decided a package was the right approach whilst we could get an RFC into the core.
 
 ## Credits
