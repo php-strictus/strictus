@@ -51,6 +51,7 @@
     ],
     "test": [
       "@test:lint",
+      "@test:stan",
       "@test:unit"
     ]
   },
