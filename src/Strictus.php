@@ -12,6 +12,7 @@ use Strictus\Types\StrictusInstance;
 use Strictus\Types\StrictusInteger;
 use Strictus\Types\StrictusObject;
 use Strictus\Types\StrictusString;
+use Strictus\Types\StrictusUnion;
 
 final class Strictus
 {
@@ -93,5 +94,15 @@ final class Strictus
     public static function nullableEnum(string $enumType, mixed $enum): StrictusEnum
     {
         return new StrictusEnum($enumType, $enum, true);
+    }
+
+    public static function union(array $types, mixed $value, bool $nullable = false): StrictusUnion
+    {
+        return new StrictusUnion($types, $value, $nullable);
+    }
+
+    public static function nullableUnion(array $types, mixed $value, bool $nullable = false): StrictusUnion
+    {
+        return new StrictusUnion($types, $value, true);
     }
 }
