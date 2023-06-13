@@ -21,4 +21,9 @@ final class StrictusTypeException extends TypeError
     {
         return new self(sprintf('Not support %s type', $type));
     }
+
+    public static function becauseNullInstanceType(): self
+    {
+        return new self('Can\'t detect instanceable type');
+    }
 }

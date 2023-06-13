@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Strictus;
 
+use Strictus\Enums\Type;
 use Strictus\Types\StrictusArray;
 use Strictus\Types\StrictusBoolean;
 use Strictus\Types\StrictusEnum;
@@ -96,11 +97,17 @@ final class Strictus
         return new StrictusEnum($enumType, $enum, true);
     }
 
+    /**
+     * @param  array<int, Type>  $types
+     */
     public static function union(array $types, mixed $value, bool $nullable = false): StrictusUnion
     {
         return new StrictusUnion($types, $value, $nullable);
     }
 
+    /**
+     * @param  array<int, Type>  $types
+     */
     public static function nullableUnion(array $types, mixed $value, bool $nullable = false): StrictusUnion
     {
         return new StrictusUnion($types, $value, true);

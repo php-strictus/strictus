@@ -12,6 +12,8 @@ use UnitEnum;
 
 /**
  * @internal
+ *
+ * @property ?StrictusTypeInterface $value
  */
 final class StrictusUnion implements StrictusTypeInterface
 {
@@ -21,8 +23,12 @@ final class StrictusUnion implements StrictusTypeInterface
 
     private ?Type $type = null;
 
+    /** @var class-string|null */
     private ?string $instance = null;
 
+    /**
+     * @param  array<int, Type>  $types
+     */
     public function __construct(private array $types, mixed $value, private bool $nullable)
     {
         if ($this->nullable) {
@@ -69,14 +75,15 @@ final class StrictusUnion implements StrictusTypeInterface
         $this->value = $this->getStritusType($value);
     }
 
+    /**
+     * @param  array<int, Type>  $types $types
+     */
     private function validateTypes(array $types): void
     {
         foreach ($types as $type) {
-            if ($type instanceof Type) {
-                continue;
+            if (! $type instanceof Type) {
+                throw StrictusTypeException::becauseInvalidSupportedType();
             }
-
-            throw StrictusTypeException::becauseInvalidSupportedType();
         }
     }
 
@@ -130,8 +137,12 @@ final class StrictusUnion implements StrictusTypeInterface
             return;
         }
 
+        if (false === is_object($value)) {
+            throw StrictusTypeException::becauseNotSupportedType(gettype($value));
+        }
+
         $class = get_class($value);
-        if (is_object($value) && 'stdClass' === $class) {
+        if ('stdClass' === $class) {
             $this->type = Type::OBJECT;
 
             return;
@@ -144,7 +155,7 @@ final class StrictusUnion implements StrictusTypeInterface
             return;
         }
 
-        if (is_object($value) && class_exists($class)) {
+        if (class_exists($class)) {
             $this->type = Type::INSTANCE;
             $this->instance = $class;
 
@@ -157,15 +168,27 @@ final class StrictusUnion implements StrictusTypeInterface
     private function getStritusType(mixed $value): ?StrictusTypeInterface
     {
         return match ($this->type) {
+            null => null,
             Type::INT => new StrictusInteger($value, $this->nullable),
             Type::STRING => new StrictusString($value, $this->nullable),
             Type::FLOAT => new StrictusFloat($value, $this->nullable),
             Type::BOOLEAN => new StrictusBoolean($value, $this->nullable),
             Type::ARRAY => new StrictusArray($value, $this->nullable),
             Type::OBJECT => new StrictusObject($value, $this->nullable),
+            default => $this->getInstanceableStritusType($value),
+        };
+    }
+
+    private function getInstanceableStritusType(mixed $value): StrictusTypeInterface
+    {
+        if (null === $this->instance) {
+            throw StrictusTypeException::becauseNullInstanceType();
+        }
+
+        return match ($this->type) {
             Type::INSTANCE => new StrictusInstance($this->instance, $value, $this->nullable),
             Type::ENUM => new StrictusEnum($this->instance, $value, $this->nullable),
-            null => null,
+            default => throw new StrictusTypeException(),
         };
     }
 }

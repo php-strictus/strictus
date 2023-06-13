@@ -8,6 +8,8 @@ use Strictus\Types\StrictusUndefined;
 
 /**
  * @internal
+ *
+ * @property mixed $value
  */
 interface StrictusTypeInterface
 {
