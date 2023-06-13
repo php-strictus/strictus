@@ -23,8 +23,8 @@ final class StrictusUnion implements StrictusTypeInterface
 
     private ?Type $type = null;
 
-    /** @var class-string|null */
-    private ?string $instance = null;
+    /** @var array<string, string>|null */
+    private ?array $instance = null;
 
     /**
      * @param  array<int, Type>  $types
@@ -150,19 +150,38 @@ final class StrictusUnion implements StrictusTypeInterface
 
         if ($value instanceof UnitEnum) {
             $this->type = Type::ENUM;
-            $this->instance = $class;
+            $this->setInstance($class);
 
             return;
         }
 
         if (class_exists($class)) {
             $this->type = Type::INSTANCE;
-            $this->instance = $class;
+            $this->setInstance($class);
 
             return;
         }
 
         throw StrictusTypeException::becauseNotSupportedType(gettype($value));
+    }
+
+    private function setInstance(string $instance): void
+    {
+        if (null === $this->type) {
+            throw StrictusTypeException::becauseNullInstanceType();
+        }
+
+        if (Type::ENUM !== $this->type && Type::INSTANCE !== $this->type) {
+            throw StrictusTypeException::becauseUnInstanceableType();
+        }
+
+        if (isset($this->instance[$this->type->name]) && $this->instance[$this->type->name]) {
+            return;
+        }
+
+        $this->instance = [
+            $this->type->name => $instance,
+        ];
     }
 
     private function getStrictusType(mixed $value): ?StrictusTypeInterface
@@ -181,14 +200,18 @@ final class StrictusUnion implements StrictusTypeInterface
 
     private function getInstanceableStrictusType(mixed $value): StrictusTypeInterface
     {
-        if (null === $this->instance) {
+        if (null === $this->type) {
+            throw StrictusTypeException::becauseInvalidSupportedType();
+        }
+
+        if (null === $this->instance || (! isset($this->instance[$this->type->name]))) {
             throw StrictusTypeException::becauseNullInstanceType();
         }
 
         return match ($this->type) {
-            Type::INSTANCE => new StrictusInstance($this->instance, $value, $this->nullable),
-            Type::ENUM => new StrictusEnum($this->instance, $value, $this->nullable),
-            default => throw new StrictusTypeException(),
+            Type::INSTANCE => new StrictusInstance($this->instance[$this->type->name], $value, $this->nullable),
+            Type::ENUM => new StrictusEnum($this->instance[$this->type->name], $value, $this->nullable),
+            default => throw StrictusTypeException::becauseUnInstanceableType(),
         };
     }
 }

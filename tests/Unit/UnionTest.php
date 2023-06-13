@@ -145,6 +145,33 @@ it('updates the value correctly', function () {
         ->toBe(MyDummyEnum::FOO);
 });
 
+it('can\'t updates the instanceable value', function () {
+    $value = Strictus::union([Type::ENUM, Type::BOOLEAN], MyDummyBackedEnum::BAR);
+
+    expect($value->value)
+        ->toBeInstanceOf(MyDummyBackedEnum::class)
+        ->toBe(MyDummyBackedEnum::BAR)
+        ->and($value())
+        ->toEqual(MyDummyBackedEnum::BAR)
+        ->toBeInstanceOf(MyDummyBackedEnum::class)
+        ->toBe(MyDummyBackedEnum::BAR)
+        ->and(fn () => $value->value = MyDummyEnum::FOO)
+        ->toThrow(StrictusTypeException::class)
+        ->and(fn () => $value(MyDummyEnum::FOO))
+        ->toThrow(StrictusTypeException::class);
+
+    $newValue = Strictus::union([Type::INSTANCE, Type::BOOLEAN], new MyDummyClass());
+
+    expect($newValue->value)
+        ->toBeInstanceOf(MyDummyClass::class)
+        ->and($newValue())
+        ->toBeInstanceOf(MyDummyClass::class)
+        ->and(fn () => $newValue->value = new MySecondDummyClass())
+        ->toThrow(StrictusTypeException::class)
+        ->and(fn () => $newValue(new MySecondDummyClass()))
+        ->toThrow(StrictusTypeException::class);
+});
+
 it('can\'t updates the immutable value', function () {
     $value = Strictus::union([Type::INT, Type::STRING], 'foo')->immutable();
 
@@ -159,6 +186,10 @@ it('can\'t updates the immutable value', function () {
 });
 
 class MyDummyClass
+{
+}
+
+class MySecondDummyClass
 {
 }
 

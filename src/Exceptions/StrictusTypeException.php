@@ -26,6 +26,11 @@ final class StrictusTypeException extends TypeError
 
     public static function becauseNullInstanceType(): self
     {
+        return new self('The instance type isn\'t nullable');
+    }
+
+    public static function becauseUnInstanceableType(): self
+    {
         return new self('Can\'t detect instanceable type');
     }
 }
