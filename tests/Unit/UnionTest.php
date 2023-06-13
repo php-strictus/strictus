@@ -82,19 +82,19 @@ it('returns the value correctly', function () {
         ->and($objectValue())
         ->toEqual((object) ['foo' => 'bar']);
 
-    $instanceValue = Strictus::union([Type::INSTANCE, Type::STRING], new MyClass());
+    $instanceValue = Strictus::union([Type::INSTANCE, Type::STRING], new MyDummyClass());
 
     expect($instanceValue->value)
-        ->toBeInstanceOf(MyClass::class)
+        ->toBeInstanceOf(MyDummyClass::class)
         ->and($instanceValue())
-        ->toBeInstanceOf(MyClass::class);
+        ->toBeInstanceOf(MyDummyClass::class);
 
-    $enumValue = Strictus::union([Type::ENUM, Type::STRING], MyEnum::FOO);
+    $enumValue = Strictus::union([Type::ENUM, Type::STRING], MyDummyBackedEnum::BAR);
 
     expect($enumValue->value)
-        ->toBeInstanceOf(MyEnum::class)
+        ->toBeInstanceOf(MyDummyBackedEnum::class)
         ->and($enumValue())
-        ->toBeInstanceOf(MyEnum::class);
+        ->toBeInstanceOf(MyDummyBackedEnum::class);
 });
 
 it('updates the value correctly', function () {
@@ -113,12 +113,12 @@ it('updates the value correctly', function () {
     expect($value())
         ->toBe(15);
 
-    $newValue = Strictus::union([Type::OBJECT, Type::INSTANCE], new MyClass());
+    $newValue = Strictus::union([Type::OBJECT, Type::INSTANCE], new MyDummyClass());
 
     expect($newValue->value)
-        ->toBeInstanceOf(MyClass::class)
+        ->toBeInstanceOf(MyDummyClass::class)
         ->and($newValue())
-        ->toBeInstanceOf(MyClass::class);
+        ->toBeInstanceOf(MyDummyClass::class);
 
     $newValue->value = (object) ['foo' => 'bar'];
     expect($newValue->value)
@@ -135,14 +135,14 @@ it('updates the value correctly', function () {
         ->and($nullValue())
         ->toEqual(null);
 
-    $nullValue->value = new MyClass();
+    $nullValue->value = new MyDummyClass();
     expect($nullValue->value)
-        ->toBeInstanceOf(MyClass::class);
+        ->toBeInstanceOf(MyDummyClass::class);
 
-    $nullValue(MyEnum::FOO);
+    $nullValue(MyDummyEnum::FOO);
     expect($nullValue->value)
-        ->toBeInstanceOf(MyEnum::class)
-        ->toBe(MyEnum::FOO);
+        ->toBeInstanceOf(MyDummyEnum::class)
+        ->toBe(MyDummyEnum::FOO);
 });
 
 it('can\'t updates the immutable value', function () {
@@ -157,3 +157,17 @@ it('can\'t updates the immutable value', function () {
         ->and(fn () => $value('bar'))
         ->toThrow(ImmutableStrictusException::class);
 });
+
+class MyDummyClass
+{
+}
+
+enum MyDummyEnum
+{
+    case FOO;
+}
+
+enum MyDummyBackedEnum: int
+{
+    case BAR = 1;
+}

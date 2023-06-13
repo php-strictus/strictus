@@ -108,7 +108,7 @@ final class Strictus
     /**
      * @param  array<int, Type>  $types
      */
-    public static function nullableUnion(array $types, mixed $value, bool $nullable = false): StrictusUnion
+    public static function nullableUnion(array $types, mixed $value): StrictusUnion
     {
         return new StrictusUnion($types, $value, true);
     }

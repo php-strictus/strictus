@@ -39,7 +39,7 @@ final class StrictusUnion implements StrictusTypeInterface
 
         $this->validate($value);
 
-        $this->value = $this->getStritusType($value);
+        $this->value = $this->getStrictusType($value);
     }
 
     public function __invoke(mixed $value = new StrictusUndefined()): mixed
@@ -52,7 +52,7 @@ final class StrictusUnion implements StrictusTypeInterface
 
         $this->validate($value);
 
-        $this->value = $this->getStritusType($value);
+        $this->value = $this->getStrictusType($value);
 
         return $this;
     }
@@ -72,7 +72,7 @@ final class StrictusUnion implements StrictusTypeInterface
 
         $this->validate($value);
 
-        $this->value = $this->getStritusType($value);
+        $this->value = $this->getStrictusType($value);
     }
 
     /**
@@ -165,7 +165,7 @@ final class StrictusUnion implements StrictusTypeInterface
         throw StrictusTypeException::becauseNotSupportedType(gettype($value));
     }
 
-    private function getStritusType(mixed $value): ?StrictusTypeInterface
+    private function getStrictusType(mixed $value): ?StrictusTypeInterface
     {
         return match ($this->type) {
             null => null,
@@ -175,11 +175,11 @@ final class StrictusUnion implements StrictusTypeInterface
             Type::BOOLEAN => new StrictusBoolean($value, $this->nullable),
             Type::ARRAY => new StrictusArray($value, $this->nullable),
             Type::OBJECT => new StrictusObject($value, $this->nullable),
-            default => $this->getInstanceableStritusType($value),
+            default => $this->getInstanceableStrictusType($value),
         };
     }
 
-    private function getInstanceableStritusType(mixed $value): StrictusTypeInterface
+    private function getInstanceableStrictusType(mixed $value): StrictusTypeInterface
     {
         if (null === $this->instance) {
             throw StrictusTypeException::becauseNullInstanceType();
