@@ -24,7 +24,7 @@ final class StrictusUnion implements StrictusTypeInterface
     private ?Type $type = null;
 
     /** @var array<string, class-string>|null */
-    private ?array $instance = null;
+    private ?array $instances = null;
 
     /**
      * @param  array<int, Type>  $types
@@ -175,11 +175,11 @@ final class StrictusUnion implements StrictusTypeInterface
             throw StrictusTypeException::becauseUnInstanceableType();
         }
 
-        if (isset($this->instance[$this->type->name]) && $this->instance[$this->type->name]) {
+        if (isset($this->instances[$this->type->name]) && $this->instances[$this->type->name]) {
             return;
         }
 
-        $this->instance = [
+        $this->instances = [
             $this->type->name => $instance,
         ];
     }
@@ -204,13 +204,13 @@ final class StrictusUnion implements StrictusTypeInterface
             throw StrictusTypeException::becauseInvalidSupportedType();
         }
 
-        if (null === $this->instance || (! isset($this->instance[$this->type->name]))) {
+        if (null === $this->instances || (! isset($this->instances[$this->type->name]))) {
             throw StrictusTypeException::becauseNullInstanceType();
         }
 
         return match ($this->type) {
-            Type::INSTANCE => new StrictusInstance($this->instance[$this->type->name], $value, $this->nullable),
-            Type::ENUM => new StrictusEnum($this->instance[$this->type->name], $value, $this->nullable),
+            Type::INSTANCE => new StrictusInstance($this->instances[$this->type->name], $value, $this->nullable),
+            Type::ENUM => new StrictusEnum($this->instances[$this->type->name], $value, $this->nullable),
             default => throw StrictusTypeException::becauseUnInstanceableType(),
         };
     }
