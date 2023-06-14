@@ -6,4 +6,4 @@ parameters:
         - src/
 
     ignoreErrors:
-        - '#^Property Strictus\\Types\\StrictusUnion::\$instance \(array<string, class-string>\|null\) does not accept array<string, string\>.$#'
+        - '#^Property Strictus\\Types\\StrictusUnion::\$instances \(array<string, class-string>\|null\) does not accept array<string, string\>.$#'
