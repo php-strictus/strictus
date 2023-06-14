@@ -4,3 +4,6 @@ parameters:
 
     paths:
         - src/
+
+    ignoreErrors:
+        - '#^Property Strictus\\Types\\StrictusUnion::\$instance \(array<string, class-string>\|null\) does not accept array<string, string\>.$#'

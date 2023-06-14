@@ -23,7 +23,7 @@ final class StrictusUnion implements StrictusTypeInterface
 
     private ?Type $type = null;
 
-    /** @var array<string, string>|null */
+    /** @var array<string, class-string>|null */
     private ?array $instance = null;
 
     /**

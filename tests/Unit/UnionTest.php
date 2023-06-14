@@ -64,9 +64,9 @@ it('returns the value correctly', function () {
     $boolValue = Strictus::union([Type::BOOLEAN, Type::FLOAT], true);
 
     expect($boolValue->value)
-        ->toBe(true)
+        ->toBeTrue()
         ->and($boolValue())
-        ->toBe(true);
+        ->toBeTrue();
 
     $arrayValue = Strictus::union([Type::ARRAY, Type::FLOAT], ['foo' => 'bar', 'bar' => 'foo']);
 
@@ -131,9 +131,9 @@ it('updates the value correctly', function () {
     $nullValue = Strictus::nullableUnion([Type::ENUM, Type::INSTANCE], null);
 
     expect($nullValue->value)
-        ->toEqual(null)
+        ->toBe(null)
         ->and($nullValue())
-        ->toEqual(null);
+        ->toBe(null);
 
     $nullValue->value = new MyDummyClass();
     expect($nullValue->value)
@@ -152,7 +152,7 @@ it('can\'t updates the instanceable value', function () {
         ->toBeInstanceOf(MyDummyBackedEnum::class)
         ->toBe(MyDummyBackedEnum::BAR)
         ->and($value())
-        ->toEqual(MyDummyBackedEnum::BAR)
+        ->toBe(MyDummyBackedEnum::BAR)
         ->toBeInstanceOf(MyDummyBackedEnum::class)
         ->toBe(MyDummyBackedEnum::BAR)
         ->and(fn () => $value->value = MyDummyEnum::FOO)
@@ -176,9 +176,9 @@ it('can\'t updates the immutable value', function () {
     $value = Strictus::union([Type::INT, Type::STRING], 'foo')->immutable();
 
     expect($value->value)
-        ->toEqual('foo')
+        ->toBe('foo')
         ->and($value())
-        ->toEqual('foo')
+        ->toBe('foo')
         ->and(fn () => $value->value = 'bar')
         ->toThrow(ImmutableStrictusException::class)
         ->and(fn () => $value('bar'))
