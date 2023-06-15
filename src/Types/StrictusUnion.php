@@ -179,6 +179,7 @@ final class StrictusUnion implements StrictusTypeInterface
             return;
         }
 
+        /** @var class-string $instance */
         $this->instances = [
             $this->type->name => $instance,
         ];
