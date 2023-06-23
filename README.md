@@ -224,6 +224,8 @@ You can use the following methods to create single type variables:
 | Enum Type  | Yes      | Strictus::enum($enumType, $value, true)           |
 | Enum Type  | Yes      | Strictus::nullableEnum($enumType, $value)         |
 
+### Union Types
+
 `Strictus` also supports union types:
 
 ```php
