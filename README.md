@@ -195,13 +195,7 @@ echo $score(); //0
 
 ### Variable methods
 
-Currently, Strictus supports single type or nullable single type.
-
-```
-🗓️ Comming soon: Union types!
-```
-
-You can use the following methods to create variables:
+You can use the following methods to create single type variables:
 
 | Type       | Nullable | Method                                            |
 |------------|----------|---------------------------------------------------|
@@ -229,6 +223,28 @@ You can use the following methods to create variables:
 | Enum Type  | No       | Strictus::enum($enumType, $value)                 |
 | Enum Type  | Yes      | Strictus::enum($enumType, $value, true)           |
 | Enum Type  | Yes      | Strictus::nullableEnum($enumType, $value)         |
+
+`Strictus` also supports union types:
+
+```php
+use Strictus\Enums\Type;
+
+$unionTypesVariable = Strictus::union([Type::INT, Type::STRING], 'foo');
+
+echo $unionTypesVariable->value; //foo
+
+echo $unionTypesVariable(); //foo
+
+// Update variable
+
+$unionTypesVariable->value = 100;
+
+echo $unionTypesVariable->value; //100
+
+// Thrown an exception if the value is wrong union types
+
+$unionTypesVariable->value = false; //StrictusTypeException
+```
 
 ### Immutable Variables
 
