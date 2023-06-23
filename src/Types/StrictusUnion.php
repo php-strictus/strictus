@@ -166,8 +166,7 @@ final class StrictusUnion implements StrictusTypeInterface
     }
 
     /**
-     * @param class-string $instance
-     * @return void
+     * @param  class-string  $instance
      */
     private function setInstance(string $instance): void
     {
