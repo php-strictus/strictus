@@ -165,6 +165,10 @@ final class StrictusUnion implements StrictusTypeInterface
         throw StrictusTypeException::becauseNotSupportedType(gettype($value));
     }
 
+    /**
+     * @param class-string $instance
+     * @return void
+     */
     private function setInstance(string $instance): void
     {
         if (null === $this->type) {
@@ -179,7 +183,6 @@ final class StrictusUnion implements StrictusTypeInterface
             return;
         }
 
-        /** @var class-string $instance */
         $this->instances = [
             $this->type->name => $instance,
         ];
