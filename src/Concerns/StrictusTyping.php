@@ -15,13 +15,16 @@ trait StrictusTyping
 {
     use Immutable;
 
-    public function __construct(private mixed $value, private bool $nullable)
+    private mixed $value;
+
+    public function __construct(mixed $value, private bool $nullable)
     {
         if ($this->nullable) {
             $this->errorMessage .= ' Or Null';
         }
 
         $this->validate($value);
+        $this->setValue($value);
     }
 
     public function __invoke(mixed $value = new StrictusUndefined()): mixed
@@ -34,7 +37,7 @@ trait StrictusTyping
 
         $this->validate($value);
 
-        $this->value = $value;
+        $this->setValue($value);
 
         return $this;
     }
@@ -54,7 +57,7 @@ trait StrictusTyping
 
         $this->validate($value);
 
-        $this->value = $value;
+        $this->setValue($value);
     }
 
     private function validate(mixed $value): void
@@ -75,5 +78,10 @@ trait StrictusTyping
         }
 
         throw new ImmutableStrictusException('Cannot change immutable value');
+    }
+
+    private function setValue(mixed $value): void
+    {
+        $this->value = $value;
     }
 }

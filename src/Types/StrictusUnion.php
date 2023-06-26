@@ -39,7 +39,7 @@ final class StrictusUnion implements StrictusTypeInterface
 
         $this->validate($value);
 
-        $this->value = $this->getStrictusType($value);
+        $this->setValue($value);
     }
 
     public function __invoke(mixed $value = new StrictusUndefined()): mixed
@@ -52,7 +52,7 @@ final class StrictusUnion implements StrictusTypeInterface
 
         $this->validate($value);
 
-        $this->value = $this->getStrictusType($value);
+        $this->setValue($value);
 
         return $this;
     }
@@ -72,7 +72,7 @@ final class StrictusUnion implements StrictusTypeInterface
 
         $this->validate($value);
 
-        $this->value = $this->getStrictusType($value);
+        $this->setValue($value);
     }
 
     /**
@@ -187,9 +187,9 @@ final class StrictusUnion implements StrictusTypeInterface
         ];
     }
 
-    private function getStrictusType(mixed $value): ?StrictusTypeInterface
+    private function setValue(mixed $value): void
     {
-        return match ($this->type) {
+        $this->value = match ($this->type) {
             null => null,
             Type::INT => new StrictusInteger($value, $this->nullable),
             Type::STRING => new StrictusString($value, $this->nullable),

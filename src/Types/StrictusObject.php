@@ -17,4 +17,12 @@ final class StrictusObject implements StrictusTypeInterface
     private string $instanceType = 'object';
 
     private string $errorMessage = 'Expected Object';
+
+    private function setValue(mixed $value): void
+    {
+        /** @var object|null $value */
+        $this->value = $value
+            ? clone $value
+            : null;
+    }
 }

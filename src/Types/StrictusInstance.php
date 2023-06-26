@@ -17,7 +17,7 @@ final class StrictusInstance implements StrictusTypeInterface
 
     private string $errorMessage;
 
-    public function __construct(private string $instanceType, private mixed $value, private bool $nullable)
+    public function __construct(private string $instanceType, mixed $value, private bool $nullable)
     {
         $this->errorMessage = 'Expected Instance Of ' . $this->instanceType;
 
@@ -26,6 +26,7 @@ final class StrictusInstance implements StrictusTypeInterface
         }
 
         $this->validate($value);
+        $this->setValue($value);
     }
 
     private function validate(mixed $value): void
@@ -41,5 +42,13 @@ final class StrictusInstance implements StrictusTypeInterface
         if ($value !== null && $value::class !== $this->instanceType) {
             throw new StrictusTypeException($this->errorMessage);
         }
+    }
+
+    private function setValue(mixed $value): void
+    {
+        /** @var object|null $value */
+        $this->value = $value
+            ? clone $value
+            : null;
     }
 }
