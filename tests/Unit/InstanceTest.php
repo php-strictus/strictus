@@ -72,6 +72,21 @@ it('can\'t updates the immutable value', function () {
         ->toThrow(ImmutableStrictusException::class);
 });
 
+it('immutable instance', function () {
+    $counter = new Counter();
+    $value = Strictus::instance(Counter::class, $counter);
+    expect($value->value)
+        ->toBeInstanceOf(Counter::class)
+        ->and($value())
+        ->toBeInstanceOf(Counter::class)
+        ->and($value()->getCount())
+        ->toBe(1);
+
+    $counter->increment();
+    expect($value()->getCount())
+        ->toBe(1);
+});
+
 class MyClass
 {
 }
@@ -82,4 +97,21 @@ class TestClass
 
 class FooClass
 {
+}
+
+class Counter
+{
+    private int $count = 1;
+
+    public function increment(): self
+    {
+        $this->count++;
+
+        return $this;
+    }
+
+    public function getCount(): int
+    {
+        return $this->count;
+    }
 }

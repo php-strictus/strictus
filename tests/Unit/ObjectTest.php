@@ -69,3 +69,18 @@ it('can\'t updates the immutable value', function () {
         ->and(fn () => $value((object) ['bar' => 'foo']))
         ->toThrow(ImmutableStrictusException::class);
 });
+
+it('immutable object', function () {
+    $myObject = (object) ['foo' => 'bar'];
+    $value = Strictus::object($myObject);
+    expect($value->value)
+        ->toEqual((object) ['foo' => 'bar'])
+        ->and($value())
+        ->toEqual((object) ['foo' => 'bar']);
+
+    $myObject->bar = 'foo';
+    expect($value->value)
+        ->toEqual((object) ['foo' => 'bar'])
+        ->and($value())
+        ->toEqual((object) ['foo' => 'bar']);
+});
