@@ -30,7 +30,7 @@ final class StrictusEnum implements StrictusTypeInterface
 
     private function validate(mixed $value): void
     {
-        if (false === enum_exists($this->enumType)) {
+        if (enum_exists($this->enumType) === false) {
             throw new StrictusTypeException('Invalid Enum Type');
         }
 

@@ -70,7 +70,7 @@ trait StrictusTyping
 
     private function immutableValidate(): void
     {
-        if (false === $this->immutable) {
+        if ($this->immutable === false) {
             return;
         }
 

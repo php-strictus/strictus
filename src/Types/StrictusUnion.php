@@ -76,7 +76,7 @@ final class StrictusUnion implements StrictusTypeInterface
     }
 
     /**
-     * @param  array<int, Type>  $types $types
+     * @param  array<int, Type>  $types  $types
      */
     private function validateTypes(array $types): void
     {
@@ -137,12 +137,12 @@ final class StrictusUnion implements StrictusTypeInterface
             return;
         }
 
-        if (false === is_object($value)) {
+        if (is_object($value) === false) {
             throw StrictusTypeException::becauseNotSupportedType(gettype($value));
         }
 
         $class = get_class($value);
-        if ('stdClass' === $class) {
+        if ($class === 'stdClass') {
             $this->type = Type::OBJECT;
 
             return;
@@ -170,11 +170,11 @@ final class StrictusUnion implements StrictusTypeInterface
      */
     private function setInstance(string $instance): void
     {
-        if (null === $this->type) {
+        if ($this->type === null) {
             throw StrictusTypeException::becauseNullInstanceType();
         }
 
-        if (Type::ENUM !== $this->type && Type::INSTANCE !== $this->type) {
+        if ($this->type !== Type::ENUM && $this->type !== Type::INSTANCE) {
             throw StrictusTypeException::becauseUnInstanceableType();
         }
 
@@ -203,11 +203,11 @@ final class StrictusUnion implements StrictusTypeInterface
 
     private function getInstanceableStrictusType(mixed $value): StrictusTypeInterface
     {
-        if (null === $this->type) {
+        if ($this->type === null) {
             throw StrictusTypeException::becauseInvalidSupportedType();
         }
 
-        if (null === $this->instances || (! isset($this->instances[$this->type->name]))) {
+        if ($this->instances === null || (! isset($this->instances[$this->type->name]))) {
             throw StrictusTypeException::becauseNullInstanceType();
         }
 
